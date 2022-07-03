@@ -1,0 +1,34 @@
+{"method":"GET","url":"/error","http_version":"1.1","response_time":"6.009","status":"500","content_length":"23","timestamp":"2022-07-03T15:21:15.004Z","headers_count":"req-headers-length","error":"Assignment to constant variable. - TypeError: Assignment to constant variable.
+    at C:\Users\Eduard'\Desktop\mern-blog\server\app.js:47:7
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:280:10)
+    at logger (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\morgan\index.js:144:5)
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)"}
+{"method":"GET","url":"/error","http_version":"1.1","response_time":"5.688","status":"500","content_length":"23","timestamp":"2022-07-03T15:22:10.370Z","headers_count":"req-headers-length","error":"Assignment to constant variable. - TypeError: Assignment to constant variable.
+    at C:\Users\Eduard'\Desktop\mern-blog\server\app.js:47:7
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:280:10)
+    at logger (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\morgan\index.js:144:5)
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)"}
+::ffff:127.0.0.1 - - [Sun, 03 Jul 2022 15:23:00 GMT] "GET /error HTTP/1.1" 500 23 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+{"method":"GET","url":"/error","http_version":"1.1","response_time":"4.748","status":"500","content_length":"23","timestamp":"2022-07-03T15:25:42.203Z","headers_count":"req-headers-length","error":"Assignment to constant variable. - TypeError: Assignment to constant variable.
+    at C:\Users\Eduard'\Desktop\mern-blog\server\app.js:48:7
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)
+    at next (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\route.js:144:13)
+    at Route.dispatch (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\route.js:114:3)
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)
+    at C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:284:15
+    at Function.process_params (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:346:12)
+    at next (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\index.js:280:10)
+    at logger (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\morgan\index.js:144:5)
+    at Layer.handle [as handle_request] (C:\Users\Eduard'\Desktop\mern-blog\server\node_modules\express\lib\router\layer.js:95:5)"}
