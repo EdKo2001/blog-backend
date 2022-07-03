@@ -8,8 +8,7 @@ const mongoose = require("mongoose");
 
 // const routes = require("./routes/api");
 
-const logger = require("./utils/logger");
-// const { checkAuth } = require("./utils");
+const { logger, checkAuth } = require("./utils");
 
 const app = express();
 
