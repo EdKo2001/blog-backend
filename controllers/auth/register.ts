@@ -1,11 +1,13 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import { Request, Response } from "express";
+import { MongooseError } from "mongoose";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
-const { UserModel } = require("../../models");
+import { userModel } from "../../models";
 
-const register = async (req, res) => {
+const register = async (req: Request, res: Response) => {
   try {
-    const isExistsUser = await UserModel.findOne({ email: req.body.email });
+    const isExistsUser = await userModel.findOne({ email: req.body.email });
     if (isExistsUser) {
       res.status(500).json({
         message: "The email has already been taken.",
@@ -16,15 +18,16 @@ const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const doc = new UserModel({
+    const doc = new userModel({
       email: req.body.email,
       fullName: req.body.fullName,
       avatarUrl: req.body.avatarUrl,
       passwordHash: hash,
     });
 
-    const user = await doc.save().catch((error) => {
+    const user = await doc.save().catch((error: MongooseError) => {
       res.json(error);
+      req.error = error;
     });
 
     const token = jwt.sign(
@@ -43,12 +46,13 @@ const register = async (req, res) => {
       ...userData,
       token,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: "Failed to register",
     });
+    req.error = error;
   }
 };
 
-module.exports = register;
+export default register;

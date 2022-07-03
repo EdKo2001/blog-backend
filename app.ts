@@ -1,16 +1,18 @@
-const express = require("express");
-const fs = require("fs");
-const cors = require("cors");
-const compression = require("compression");
-const dotenv = require("dotenv");
-const multer = require("multer");
-const mongoose = require("mongoose");
+import express, { Express, Request, Response } from "express";
+import fs from "fs";
+import cors from "cors";
+import compression from "compression";
+import dotenv from "dotenv";
+import multer from "multer";
+import mongoose, { MongooseError } from "mongoose";
 
-// const routes = require("./routes/api");
+import { authRoutes } from "./routes/api";
 
-const { logger, checkAuth } = require("./utils");
+import { errorLogger, accessLogger, handleValidationErrors } from "./utils";
+import { registerValidation } from "./validations";
+import { authController } from "./controllers";
 
-const app = express();
+const app: Express = express();
 
 dotenv.config();
 
@@ -34,25 +36,26 @@ app.use(express.json());
 // app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use(compression());
-app.use(logger.errorLogger);
-app.use(logger.accessLogger);
+app.use(errorLogger);
+app.use(accessLogger);
 
-app.get("/", (req, res) => {
+app.get("/", (req: Request, res: Response) => {
   res.status(200).json("Home page");
 });
 
-app.get("/error", (req, res) => {
+app.get("/error", (req: Request, res: Response) => {
   try {
     const a = 1;
+    //@ts-ignore
     a = 2;
-    res.json(a);
+    res.json({ a: a });
   } catch (error) {
     req.error = error;
     res.status(500).json("internal server error");
   }
 });
 
-// app.use("/auth", routes.authRoutes);
+app.use("/api/auth", authRoutes);
 // app.use("/posts", routes.postRoutes);
 
 // app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
@@ -63,19 +66,20 @@ app.get("/error", (req, res) => {
 
 app.use((req, res) => {
   res.status(404).json({
-    message: "Not  Found",
+    message: "Not Found",
   });
-  req.error = error;
+  //@ts-ignore
+  req.error = { message: "Not Found" };
 });
 
 mongoose
-  .connect(process.env.MONGODB_URI)
-  .then((result) => {
+  .connect(process.env.MONGODB_URI!)
+  .then(() => {
     app.listen(PORT, () => {
       console.log("Server listening on http://localhost:" + PORT);
     });
   })
-  .catch((err) => {
+  .catch((err: MongooseError) => {
     console.log(err);
     process.exit(1);
   });

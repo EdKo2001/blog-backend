@@ -1,8 +1,10 @@
-const { UserModel } = require("../../models");
+import { Request, Response } from "express";
 
-const current = async (req, res) => {
+import { userModel } from "../../models";
+
+const current = async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findById(req.userId);
+    const user = await userModel.findById(req.userId);
 
     if (!user) {
       return res.status(404).json({
@@ -21,4 +23,4 @@ const current = async (req, res) => {
   }
 };
 
-module.exports = current;
+export default current;

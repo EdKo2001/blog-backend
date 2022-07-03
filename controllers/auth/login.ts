@@ -1,11 +1,12 @@
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+import { Request, Response } from "express";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
-const { UserModel } = require("../../models");
+import { userModel } from "../../models";
 
-const login = async (req, res) => {
+const login = async (req: Request, res: Response) => {
   try {
-    const user = await UserModel.findOne({ email: req.body.email });
+    const user = await userModel.findOne({ email: req.body.email });
 
     if (!user) {
       return res.status(404).json({
@@ -48,4 +49,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = login;
+export default login;

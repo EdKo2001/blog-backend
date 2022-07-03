@@ -1,11 +1,13 @@
-const jwt = require("jsonwebtoken");
+import { Request, Response, NextFunction } from "express";
 
-const checkAuth = (req, res, next) => {
+import jwt from "jsonwebtoken";
+
+const checkAuth = (req: Request, res: Response, next: NextFunction) => {
   const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, "secret123");
+      const decoded = jwt.verify(token, "secret123") as jwt.JwtPayload;
 
       req.userId = decoded._id;
 
@@ -22,4 +24,4 @@ const checkAuth = (req, res, next) => {
   }
 };
 
-module.export = checkAuth;
+export default checkAuth;
