@@ -1,2 +1,4 @@
-     "start": "cross-env NODE_ENV=production node app.js",
-     "start:dev": "cross-env NODE_ENV=development nodemon app.js"
+To Do Tests
+To Do Swagger
+To Do Error handling
+To Do Mongoose seeder
