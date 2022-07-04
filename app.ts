@@ -6,11 +6,9 @@ import dotenv from "dotenv";
 import multer from "multer";
 import mongoose, { MongooseError } from "mongoose";
 
-import { authRoutes } from "./routes/api";
+import { authRoutes, postRoutes } from "./routes/api";
 
-import { errorLogger, accessLogger, handleValidationErrors } from "./utils";
-import { registerValidation } from "./validations";
-import { authController } from "./controllers";
+import { errorLogger, accessLogger, checkAuth } from "./utils";
 
 const app: Express = express();
 
@@ -18,22 +16,22 @@ dotenv.config();
 
 const PORT = process.env.PORT || 8888;
 
-// const storage = multer.diskStorage({
-//   destination: (_, __, cb) => {
-//     if (!fs.existsSync("uploads")) {
-//       fs.mkdirSync("uploads");
-//     }
-//     cb(null, "uploads");
-//   },
-//   filename: (_, file, cb) => {
-//     cb(null, file.originalname);
-//   },
-// });
+const storage = multer.diskStorage({
+  destination: (_, __, cb) => {
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
+    }
+    cb(null, "uploads");
+  },
+  filename: (_, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
-// const upload = multer({ storage });
+const upload = multer({ storage });
 
 app.use(express.json());
-// app.use("/uploads", express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use(compression());
 app.use(errorLogger);
@@ -56,13 +54,13 @@ app.get("/error", (req: Request, res: Response) => {
 });
 
 app.use("/api/auth", authRoutes);
-// app.use("/posts", routes.postRoutes);
+app.use("/posts", postRoutes);
 
-// app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
-//   res.json({
-//     url: `/uploads/${req.file.originalname}`,
-//   });
-// });
+app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file?.originalname}`,
+  });
+});
 
 app.use((req, res) => {
   res.status(404).json({

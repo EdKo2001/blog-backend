@@ -1,18 +1,7 @@
 import { Request, Response } from "express";
 import fs from "fs";
 import morgan from "morgan";
-import rfs from "rotating-file-stream";
 import path from "path";
-
-// const accessLogStream = rfs.createStream("access.log", {
-//   interval: "5s", // rotate daily
-//   path: path.join(path.dirname(require.main!.filename), "logs/access"),
-// });
-
-// const errorLogStream = rfs.createStream("error.log", {
-//   interval: "5s", // rotate daily
-//   path: path.join(path.dirname(require.main!.filename), "logs/error"),
-// });
 
 morgan.token(
   "error",

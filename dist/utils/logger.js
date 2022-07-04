@@ -7,14 +7,6 @@ exports.accessLogger = exports.errorLogger = void 0;
 const fs_1 = __importDefault(require("fs"));
 const morgan_1 = __importDefault(require("morgan"));
 const path_1 = __importDefault(require("path"));
-// const accessLogStream = rfs.createStream("access.log", {
-//   interval: "5s", // rotate daily
-//   path: path.join(path.dirname(require.main!.filename), "logs/access"),
-// });
-// const errorLogStream = rfs.createStream("error.log", {
-//   interval: "5s", // rotate daily
-//   path: path.join(path.dirname(require.main!.filename), "logs/error"),
-// });
 morgan_1.default.token("error", (req) => { var _a, _b, _c; return `${(_a = req.error) === null || _a === void 0 ? void 0 : _a.message}${((_b = req.error) === null || _b === void 0 ? void 0 : _b.stack) ? ` - ` + ((_c = req.error) === null || _c === void 0 ? void 0 : _c.stack) : ""}`; });
 const getCustomErrorMorganFormat = () => JSON.stringify({
     method: ":method",

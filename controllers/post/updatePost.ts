@@ -1,10 +1,12 @@
-const { PostModel } = require("../../models");
+import { Request, Response } from "express";
 
-const updatePost = async (req, res) => {
+import { postModel } from "../../models";
+
+const updatePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
 
-    await PostModel.updateOne(
+    await postModel.updateOne(
       {
         _id: postId,
       },
@@ -28,4 +30,4 @@ const updatePost = async (req, res) => {
   }
 };
 
-module.exports = updatePost;
+export default updatePost;

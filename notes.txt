@@ -1,4 +1,5 @@
-To Do Tests
 To Do Swagger
 To Do Error handling
 To Do Mongoose seeder
+To Do Tests
+To Do Deployment

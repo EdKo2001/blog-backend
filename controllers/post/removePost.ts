@@ -1,24 +1,21 @@
-const { PostModel } = require("../../models");
+import { Request, Response } from "express";
 
-const getPost = async (req, res) => {
+import { postModel } from "../../models";
+
+const removePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
 
-    PostModel.findOneAndUpdate(
+    postModel.findOneAndDelete(
       {
         _id: postId,
       },
-      {
-        $inc: { viewsCount: 1 },
-      },
-      {
-        returnDocument: "after",
-      },
+      //@ts-ignore
       (err, doc) => {
         if (err) {
           console.log(err);
           return res.status(500).json({
-            message: "Unable to return article",
+            message: "Failed to delete article",
           });
         }
 
@@ -28,9 +25,11 @@ const getPost = async (req, res) => {
           });
         }
 
-        res.json(doc);
+        res.json({
+          success: true,
+        });
       }
-    ).populate("user");
+    );
   } catch (err) {
     console.log(err);
     res.status(500).json({
@@ -39,4 +38,4 @@ const getPost = async (req, res) => {
   }
 };
 
-module.exports = getPost;
+export default removePost;

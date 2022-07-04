@@ -1,8 +1,10 @@
-const { PostModel } = require("../../models");
+import { Request, Response } from "express";
 
-const getLastTags = async (req, res) => {
+import { postModel } from "../../models";
+
+const getLastTags = async (req: Request, res: Response) => {
   try {
-    const posts = await PostModel.find().limit(5).exec();
+    const posts = await postModel.find().limit(5).exec();
 
     const tags = posts
       .map((obj) => obj.tags)
@@ -18,4 +20,4 @@ const getLastTags = async (req, res) => {
   }
 };
 
-module.exports = getLastTags;
+export default getLastTags;

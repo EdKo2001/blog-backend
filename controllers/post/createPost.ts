@@ -1,8 +1,10 @@
-const { PostModel } = require("../../models");
+import { Request, Response } from "express";
 
-const createPost = async (req, res) => {
+import { postModel } from "../../models";
+
+const createPost = async (req: Request, res: Response) => {
   try {
-    const doc = new PostModel({
+    const doc = new postModel({
       title: req.body.title,
       text: req.body.text,
       imageUrl: req.body.imageUrl,
@@ -21,4 +23,4 @@ const createPost = async (req, res) => {
   }
 };
 
-module.exports = createPost;
+export default createPost;
