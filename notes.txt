@@ -3,3 +3,4 @@ To Do Error handling
 To Do Mongoose seeder
 To Do Tests
 To Do Deployment
+To Do Fix ts issues

@@ -35,6 +35,7 @@ const login = async (req: Request, res: Response) => {
       }
     );
 
+    //@ts-ignore
     const { passwordHash, ...userData } = user._doc;
 
     res.json({

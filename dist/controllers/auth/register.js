@@ -45,7 +45,6 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
         const user = yield doc.save().catch((error) => {
             res.json(error);
-            req.error = error;
         });
         const token = jsonwebtoken_1.default.sign({
             _id: user._id,
@@ -60,7 +59,6 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({
             message: "Failed to register",
         });
-        req.error = error;
     }
 });
 exports.default = register;

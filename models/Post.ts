@@ -1,4 +1,12 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
+
+export interface IPost extends Document {
+  title: string;
+  text: string;
+  tags: string[];
+  viewsCount: number;
+  user: Schema.Types.ObjectId;
+}
 
 const PostSchema = new Schema(
   {
@@ -31,4 +39,4 @@ const PostSchema = new Schema(
   }
 );
 
-export default model("Post", PostSchema);
+export default model<IPost>("Post", PostSchema);

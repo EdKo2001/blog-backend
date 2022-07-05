@@ -8,7 +8,7 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
   if (token) {
     try {
       const decoded = jwt.verify(token, "secret123") as jwt.JwtPayload;
-
+      //@ts-ignore
       req.userId = decoded._id;
 
       next();

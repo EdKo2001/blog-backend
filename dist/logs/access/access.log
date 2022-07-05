@@ -1,0 +1,3 @@
+::ffff:127.0.0.1 - - [04/Jul/2022:15:15:27 +0000] "POST /api/auth/register HTTP/1.1" 400 70 "-" "Thunder Client (https://www.thunderclient.com)"
+::ffff:127.0.0.1 - - [04/Jul/2022:15:15:28 +0000] "POST /api/auth/register HTTP/1.1" 400 70 "-" "Thunder Client (https://www.thunderclient.com)"
+::ffff:127.0.0.1 - - [04/Jul/2022:15:15:28 +0000] "POST /api/auth/register HTTP/1.1" 400 70 "-" "Thunder Client (https://www.thunderclient.com)"

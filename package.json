@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "build": "npx tsc",
-    "start": "node dist/app.js",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/app.js\"",
+    "dev": "ts-node app.ts",
+    "start": "ts-node dist/app.js",
+    "build": "tsc -p .",
     "lint": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -23,7 +23,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.5",
     "morgan": "^1.10.0",
-    "multer": "^1.4.5-lts.1"
+    "multer": "^1.4.5-lts.1",
+    "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -39,6 +40,7 @@
     "concurrently": "^7.2.2",
     "eslint": "^8.19.0",
     "nodemon": "^2.0.18",
+    "ts-node": "^10.8.2",
     "typescript": "^4.7.4"
   }
 }

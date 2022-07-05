@@ -9,6 +9,7 @@ const createPost = async (req: Request, res: Response) => {
       text: req.body.text,
       imageUrl: req.body.imageUrl,
       tags: req.body.tags.split(","),
+      //@ts-ignore
       user: req.userId,
     });
 

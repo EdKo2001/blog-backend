@@ -27,11 +27,11 @@ const register = async (req: Request, res: Response) => {
 
     const user = await doc.save().catch((error: MongooseError) => {
       res.json(error);
-      req.error = error;
     });
 
     const token = jwt.sign(
       {
+        //@ts-ignore
         _id: user._id,
       },
       "secret123",
@@ -51,7 +51,6 @@ const register = async (req: Request, res: Response) => {
     res.status(500).json({
       message: "Failed to register",
     });
-    req.error = error;
   }
 };
 

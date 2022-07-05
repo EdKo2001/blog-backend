@@ -5,6 +5,7 @@ import compression from "compression";
 import dotenv from "dotenv";
 import multer from "multer";
 import mongoose, { MongooseError } from "mongoose";
+//asdasdas
 
 import { authRoutes, postRoutes } from "./routes/api";
 
@@ -48,6 +49,7 @@ app.get("/error", (req: Request, res: Response) => {
     a = 2;
     res.json({ a: a });
   } catch (error) {
+    //@ts-ignore
     req.error = error;
     res.status(500).json("internal server error");
   }

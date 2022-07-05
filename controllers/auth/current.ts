@@ -4,6 +4,9 @@ import { userModel } from "../../models";
 
 const current = async (req: Request, res: Response) => {
   try {
+    //@ts-ignore
+    console.log(req.userId); //@ts-ignore
+    console.log(typeof req.userId); //@ts-ignore
     const user = await userModel.findById(req.userId);
 
     if (!user) {
