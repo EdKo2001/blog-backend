@@ -45,6 +45,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }, "secret123", {
             expiresIn: "30d",
         });
+        //@ts-ignore
         const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
         res.json(Object.assign(Object.assign({}, userData), { token }));
     }

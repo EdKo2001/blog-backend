@@ -19,6 +19,7 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             title: req.body.title,
             text: req.body.text,
             imageUrl: req.body.imageUrl,
+            //@ts-ignore
             user: req.userId,
             tags: req.body.tags.split(","),
         });

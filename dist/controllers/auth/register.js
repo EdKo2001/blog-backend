@@ -47,6 +47,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             res.json(error);
         });
         const token = jsonwebtoken_1.default.sign({
+            //@ts-ignore
             _id: user._id,
         }, "secret123", {
             expiresIn: "30d",

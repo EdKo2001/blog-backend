@@ -5,7 +5,8 @@ import compression from "compression";
 import dotenv from "dotenv";
 import multer from "multer";
 import mongoose, { MongooseError } from "mongoose";
-//asdasdas
+import swaggerUi from "swagger-ui-express";
+import swaggerDoc from "./swagger.json";
 
 import { authRoutes, postRoutes } from "./routes/api";
 
@@ -55,8 +56,9 @@ app.get("/error", (req: Request, res: Response) => {
   }
 });
 
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 app.use("/api/auth", authRoutes);
-app.use("/posts", postRoutes);
+app.use("/api/posts", postRoutes);
 
 app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
   res.json({

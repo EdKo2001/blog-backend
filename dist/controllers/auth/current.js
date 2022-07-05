@@ -23,6 +23,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const current = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        //@ts-ignore
+        console.log(req.userId); //@ts-ignore
+        console.log(typeof req.userId); //@ts-ignore
         const user = yield models_1.userModel.findById(req.userId);
         if (!user) {
             return res.status(404).json({

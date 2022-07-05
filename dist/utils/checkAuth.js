@@ -9,6 +9,7 @@ const checkAuth = (req, res, next) => {
     if (token) {
         try {
             const decoded = jsonwebtoken_1.default.verify(token, "secret123");
+            //@ts-ignore
             req.userId = decoded._id;
             next();
         }
