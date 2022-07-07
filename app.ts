@@ -71,7 +71,7 @@ app.use((req, res) => {
     message: "Not Found",
   });
   //@ts-ignore
-  req.error = { message: "Not Found" };
+  req.error.message = "Not Found";
 });
 
 mongoose

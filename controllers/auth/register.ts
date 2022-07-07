@@ -26,6 +26,8 @@ const register = async (req: Request, res: Response) => {
     });
 
     const user = await doc.save().catch((error: MongooseError) => {
+      //@ts-ignore
+      req.error = error;
       res.json(error);
     });
 

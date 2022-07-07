@@ -1,1 +1,2 @@
-{"method":"POST","url":"/wp-admin/admin-ajax.php","http_version":"1.1","response_time":"7.297","status":"404","content_length":"23","timestamp":"2022-07-07T14:30:17.066Z","headers_count":"req-headers-length","error":"Not Found"}
+{"method":"POST","url":"/api/auth/register","http_version":"1.1","response_time":"9.425","status":"400","content_length":"94","timestamp":"2022-07-07T15:15:20.327Z","headers_count":"req-headers-length","error":"undefined"}
+{"method":"POST","url":"/wp-admin/admin-ajax.php","http_version":"1.1","response_time":"0.659","status":"404","content_length":"23","timestamp":"2022-07-07T15:16:39.259Z","headers_count":"req-headers-length","error":"undefined"}

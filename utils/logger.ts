@@ -5,9 +5,12 @@ import path from "path";
 
 morgan.token(
   "error",
-  (req: Request) =>
+  (req: Request) => (
+    //@ts-ignore
+    console.log(req.error),
     //@ts-ignore
     `${req.error?.message}${req.error?.stack ? ` - ` + req.error.stack : ""}`
+  )
 );
 
 const getCustomErrorMorganFormat = () =>
