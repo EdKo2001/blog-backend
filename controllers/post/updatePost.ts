@@ -24,6 +24,8 @@ const updatePost = async (req: Request, res: Response) => {
       success: true,
     });
   } catch (err) {
+    //@ts-ignore
+    req.error = error;
     console.log(err);
     res.status(500).json({
       message: "Failed to update article",

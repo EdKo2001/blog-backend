@@ -1,8 +1,8 @@
 import { body } from "express-validator";
 
 export const postCreateValidation = [
-  body("title", "Введите заголовок статьи").isLength({ min: 3 }).isString(),
-  body("text", "Введите текст статьи").isLength({ min: 3 }).isString(),
-  body("tags", "Неверный формат тэгов").optional().isString(),
-  body("imageUrl", "Неверная ссылка на изображение").optional().isString(),
+  body("title", "Enter article title").isLength({ min: 3 }).isString(),
+  body("text", "Enter article content").isLength({ min: 3 }).isString(),
+  body("tags", "Wrong tag format").optional().isString(),
+  body("imageUrl", "Invalid image link").optional().isString(),
 ];

@@ -37,6 +37,8 @@ const getPost = async (req: Request, res: Response) => {
       )
       .populate("user");
   } catch (err) {
+    //@ts-ignore
+    req.error = error;
     console.log(err);
     res.status(500).json({
       message: "Failed to retrieve articles",

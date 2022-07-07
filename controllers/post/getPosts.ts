@@ -7,6 +7,8 @@ const getPosts = async (req: Request, res: Response) => {
     const posts = await postModel.find().populate("user").exec();
     res.json(posts);
   } catch (err) {
+    //@ts-ignore
+    req.error = error;
     console.log(err);
     res.status(500).json({
       message: "Failed to retrieve articles",

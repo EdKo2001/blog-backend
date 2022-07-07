@@ -17,6 +17,8 @@ const createPost = async (req: Request, res: Response) => {
 
     res.json(post);
   } catch (err) {
+    //@ts-ignore
+    req.error = error;
     console.log(err);
     res.status(500).json({
       message: "Failed to create article",

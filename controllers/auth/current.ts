@@ -20,6 +20,8 @@ const current = async (req: Request, res: Response) => {
     res.json(userData);
   } catch (err) {
     console.log(err);
+    //@ts-ignore
+    req.error = error;
     res.status(500).json({
       message: "Internal Server Error",
     });

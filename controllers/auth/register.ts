@@ -48,6 +48,8 @@ const register = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
+    //@ts-ignore
+    req.error = error;
     res.status(500).json({
       message: "Failed to register",
     });

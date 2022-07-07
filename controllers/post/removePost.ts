@@ -13,6 +13,8 @@ const removePost = async (req: Request, res: Response) => {
       //@ts-ignore
       (err, doc) => {
         if (err) {
+          //@ts-ignore
+          req.error = error;
           console.log(err);
           return res.status(500).json({
             message: "Failed to delete article",
@@ -31,6 +33,8 @@ const removePost = async (req: Request, res: Response) => {
       }
     );
   } catch (err) {
+    //@ts-ignore
+    req.error = error;
     console.log(err);
     res.status(500).json({
       message: "Failed to retrieve articles",
