@@ -1,6 +1,19 @@
-To Do Swagger
-To Do Error handling
+High Priority
 To Do Mongoose seeder
 To Do Tests
+
+
+Medium Priority
 To Do Deployment (PM AND DOCKER)
 To Do Fix ts issues
+
+
+Low Priority
+
+
+Ready 4 Test
+To Do Error handling (check on front)
+
+
+Done
+To Do Swagger
