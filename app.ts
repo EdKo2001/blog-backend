@@ -4,8 +4,9 @@ import cors from "cors";
 import compression from "compression";
 import dotenv from "dotenv";
 import multer from "multer";
-import mongoose, { MongooseError } from "mongoose";
 import swaggerUi from "swagger-ui-express";
+
+import connectDB from "./config/mongoDB";
 import swaggerDoc from "./swagger.json";
 
 import { authRoutes, postRoutes } from "./routes/api";
@@ -17,7 +18,7 @@ const app: Express = express();
 
 dotenv.config();
 
-const PORT = process.env.PORT || 8888;
+const PORT = parseInt(process.env.PORT || "") || 8888;
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
@@ -80,17 +81,7 @@ app.use((req, res) => {
     message: "Not Found",
   });
   //@ts-ignore
-  req.error.message = "Not Found";
+  req.error = { message: "Not Found" };
 });
 
-mongoose
-  .connect(process.env.MONGODB_URI!)
-  .then(() => {
-    app.listen(PORT, () => {
-      console.log("Server listening on http://localhost:" + PORT);
-    });
-  })
-  .catch((err: MongooseError) => {
-    console.log(err);
-    process.exit(1);
-  });
+connectDB(app, PORT);

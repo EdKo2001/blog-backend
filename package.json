@@ -1,7 +1,7 @@
 {
-  "name": "blog-mern",
-  "version": "1.0.0",
-  "description": "",
+  "name": "blog-back",
+  "version": "1.0.5",
+  "description": "Blog Back-end part done on Node.js",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.ts",
@@ -10,7 +10,7 @@
     "lint": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Eduard Koshkelyab",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
