@@ -20,7 +20,7 @@ const createPost = async (req: Request, res: Response) => {
     //@ts-ignore
     req.error = error;
     console.log(err);
-    res.status(500).json({
+    res.status(503).json({
       message: "Failed to create article",
     });
   }

@@ -1,2 +1,0 @@
-::ffff:127.0.0.1 - - [07/Jul/2022:15:15:20 +0000] "POST /api/auth/register HTTP/1.1" 400 94 "-" "Thunder Client (https://www.thunderclient.com)"
-::1 - - [07/Jul/2022:15:16:39 +0000] "POST /wp-admin/admin-ajax.php HTTP/1.1" 404 23 "http://localhost:8888/wp-admin/post.php?post=14378&action=edit" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"

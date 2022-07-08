@@ -1,11 +1,11 @@
 import login from "./login";
 import register from "./register";
-import current from "./current";
+import user from "./user";
 
 const authController = {
   login,
   register,
-  current,
+  user,
 };
 
 export default authController;

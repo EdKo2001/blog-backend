@@ -22,6 +22,6 @@ router.post(
   authController.register
 );
 
-router.get("/me", checkAuth, authController.current);
+router.get("/user", checkAuth, authController.user);
 
 export default router;

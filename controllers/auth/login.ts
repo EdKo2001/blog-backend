@@ -46,7 +46,7 @@ const login = async (req: Request, res: Response) => {
     console.log(err);
     //@ts-ignore
     req.error = error;
-    res.status(500).json({
+    res.status(503).json({
       message: "Failed to login",
     });
   }

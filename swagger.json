@@ -2,27 +2,122 @@
   "_swaggerOnlineEditor": "https://editor.swagger.io/",
   "openapi": "3.0.1",
   "info": {
-    "version": "1.0.0",
-    "title": "Blog"
+    "version": "1.0.5",
+    "title": "Blog API",
+    "description": "Blog Api Documentation"
   },
   "servers": [
     {
-      "url": "https://localhost:8000/api",
+      "url": "http://localhost:8888/api",
       "description": "Development server"
     }
   ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Authorization endpoints"
+    }
+  ],
   "paths": {
-    "/auth": {
+    "/auth/register": {
       "post": {
-        "tags": ["user"],
+        "tags": ["Auth"],
+        "description": "API Endpoints of Authentication",
         "summary": "Create user",
         "operationId": "createUser",
+        "requestBody": {
+          "description": "User's object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successfully Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RegistrationResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request (invalid request body)"
+          },
+          "409": {
+            "description": "The email has already been taken"
+          },
+          "503": {
+            "description": "Failed to register"
+          }
+        }
+      }
+    },
+    "/auth/user": {
+      "get": {
+        "tags": ["Auth"],
+        "summary": "Get user by user id",
+        "operationId": "getUserByName",
+        "parameters": [
+          {
+            "name": "userId",
+            "description": "user id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully Fetched",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetUserResponse"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "User not found"
+          },
+          "503": {
+            "description": "Internal Server Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "put": {
+        "tags": ["Auth"],
+        "summary": "Updated user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateUser",
         "produces": ["application/xml", "application/json"],
         "parameters": [
           {
+            "name": "username",
+            "in": "path",
+            "description": "name that need to be updated",
+            "required": true,
+            "type": "string"
+          },
+          {
             "in": "body",
             "name": "body",
-            "description": "Created user object",
+            "description": "Updated user object",
             "required": true,
             "schema": {
               "$ref": "#/components/schemas/User"
@@ -30,71 +125,42 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
+          "400": {
+            "description": "Invalid user supplied"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
-      }
-    },
-    "/user/createWithArray": {
-      "post": {
-        "tags": ["user"],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithArrayInput",
+      },
+      "delete": {
+        "tags": ["Auth"],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
         "produces": ["application/xml", "application/json"],
         "parameters": [
           {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
+            "name": "username",
+            "in": "path",
+            "description": "The name that needs to be deleted",
             "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/User"
-              }
-            }
+            "type": "string"
           }
         ],
         "responses": {
-          "default": {
-            "description": "successful operation"
-          }
-        }
-      }
-    },
-    "/user/createWithList": {
-      "post": {
-        "tags": ["user"],
-        "summary": "Creates list of users with given input array",
-        "description": "",
-        "operationId": "createUsersWithListInput",
-        "produces": ["application/xml", "application/json"],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "description": "List of user object",
-            "required": true,
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/User"
-              }
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "description": "successful operation"
+          "400": {
+            "description": "Invalid username supplied"
+          },
+          "404": {
+            "description": "User not found"
           }
         }
       }
     },
     "/user/login": {
       "get": {
-        "tags": ["user"],
+        "tags": ["Auth"],
         "summary": "Logs user into the system",
         "description": "",
         "operationId": "loginUser",
@@ -142,7 +208,7 @@
     },
     "/user/logout": {
       "get": {
-        "tags": ["user"],
+        "tags": ["Auth"],
         "summary": "Logs out current logged in user session",
         "description": "",
         "operationId": "logoutUser",
@@ -154,137 +220,132 @@
           }
         }
       }
-    },
-    "/user/{username}": {
-      "get": {
-        "tags": ["user"],
-        "summary": "Get user by user name",
-        "description": "",
-        "operationId": "getUserByName",
-        "produces": ["application/xml", "application/json"],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be fetched. Use user1 for testing. ",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "successful operation",
-            "schema": {
-              "$ref": "#/components/schemas/User"
-            }
-          },
-          "400": {
-            "description": "Invalid username supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      },
-      "put": {
-        "tags": ["user"],
-        "summary": "Updated user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser",
-        "produces": ["application/xml", "application/json"],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "name that need to be updated",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "description": "Updated user object",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/User"
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid user supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      },
-      "delete": {
-        "tags": ["user"],
-        "summary": "Delete user",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "deleteUser",
-        "produces": ["application/xml", "application/json"],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "The name that needs to be deleted",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Invalid username supplied"
-          },
-          "404": {
-            "description": "User not found"
-          }
-        }
-      }
     }
   },
   "components": {
     "schemas": {
       "User": {
-        "type": "object",
+        "required": ["fullName", "email", "password"],
         "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "username": {
-            "type": "string"
-          },
-          "firstName": {
-            "type": "string"
-          },
-          "lastName": {
-            "type": "string"
+          "fullName": {
+            "type": "string",
+            "format": "string",
+            "example": "Eduard Koshkelyan"
           },
           "email": {
-            "type": "string"
+            "type": "string",
+            "format": "email",
+            "example": "eduardko2001@gmail.com"
           },
           "password": {
-            "type": "string"
+            "type": "string",
+            "format": "password",
+            "example": "test123"
           },
-          "phone": {
-            "type": "string"
-          },
-          "userStatus": {
-            "type": "integer",
-            "description": "User Status",
-            "format": "int32"
+          "avatarUrl": {
+            "type": "string",
+            "format": "url",
+            "example": "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
           }
-        },
-        "xml": {
-          "name": "User"
+        }
+      },
+      "RegistrationResponse": {
+        "required": [
+          "fullName",
+          "email",
+          "_id",
+          "updatedAt",
+          "createdAt",
+          "token",
+          "__v"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "format": "string",
+            "example": "Eduard Koshkelyan"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "eduardko2001@gmail.com"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "format": "url",
+            "example": "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+          },
+          "_id": {
+            "type": "string",
+            "format": "string",
+            "example": "62c7f15b1ea84dc359dccf50"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-08T09:05:35.008Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-08T09:05:35.008Z"
+          },
+          "__v": {
+            "type": "number"
+          },
+          "token": {
+            "type": "string",
+            "format": "jwt",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MmM3ZjE1YjFlYTg0ZGMzNTlkY2NmNTAiLCJpYXQiOjE2NTcyNzA2MTksImV4cCI6MTY1OTg2MjYxOX0.3CLnKiXDxO6FAgm_hqwciIGdXjWfMdbAeX4oQ-VbexU"
+          }
+        }
+      },
+      "GetUserResponse": {
+        "required": [
+          "fullName",
+          "email",
+          "_id",
+          "updatedAt",
+          "createdAt",
+          "token",
+          "__v"
+        ],
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "format": "string",
+            "example": "Eduard Koshkelyan"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "example": "eduardko2001@gmail.com"
+          },
+          "avatarUrl": {
+            "type": "string",
+            "format": "url",
+            "example": "https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+          },
+          "_id": {
+            "type": "string",
+            "format": "string",
+            "example": "62c7f15b1ea84dc359dccf50"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-08T09:05:35.008Z"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2022-07-08T09:05:35.008Z"
+          },
+          "__v": {
+            "type": "number"
+          }
         }
       }
     },

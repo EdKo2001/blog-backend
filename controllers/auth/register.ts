@@ -9,8 +9,8 @@ const register = async (req: Request, res: Response) => {
   try {
     const isExistsUser = await userModel.findOne({ email: req.body.email });
     if (isExistsUser) {
-      res.status(500).json({
-        message: "The email has already been taken.",
+      return res.status(422).json({
+        message: "The email has already been taken",
       });
     }
 
@@ -44,7 +44,7 @@ const register = async (req: Request, res: Response) => {
 
     const { passwordHash, ...userData } = user._doc;
 
-    res.json({
+    res.status(201).json({
       ...userData,
       token,
     });
@@ -52,7 +52,7 @@ const register = async (req: Request, res: Response) => {
     console.log(error);
     //@ts-ignore
     req.error = error;
-    res.status(500).json({
+    res.status(503).json({
       message: "Failed to register",
     });
   }

@@ -11,6 +11,7 @@ import swaggerDoc from "./swagger.json";
 import { authRoutes, postRoutes } from "./routes/api";
 
 import { errorLogger, accessLogger, checkAuth } from "./utils";
+import swaggerSchemas from "./swaggerSchemas";
 
 const app: Express = express();
 
@@ -56,9 +57,17 @@ app.get("/error", (req: Request, res: Response) => {
   }
 });
 
-app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+const options = {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Blog Api Documentation",
+};
+
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc, options));
+
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
+
+app.get("/api/models-schema", (_, res) => res.json(swaggerSchemas));
 
 app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
   res.json({

@@ -2,11 +2,9 @@ import { Request, Response } from "express";
 
 import { userModel } from "../../models";
 
-const current = async (req: Request, res: Response) => {
+const user = async (req: Request, res: Response) => {
   try {
     //@ts-ignore
-    console.log(req.userId); //@ts-ignore
-    console.log(typeof req.userId); //@ts-ignore
     const user = await userModel.findById(req.userId);
 
     if (!user) {
@@ -22,10 +20,10 @@ const current = async (req: Request, res: Response) => {
     console.log(err);
     //@ts-ignore
     req.error = error;
-    res.status(500).json({
+    res.status(503).json({
       message: "Internal Server Error",
     });
   }
 };
 
-export default current;
+export default user;
