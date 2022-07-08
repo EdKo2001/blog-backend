@@ -7,7 +7,10 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 
   if (token) {
     try {
-      const decoded = jwt.verify(token, "secret123") as jwt.JwtPayload;
+      const decoded = jwt.verify(
+        token,
+        process.env.JWT as string
+      ) as jwt.JwtPayload;
       //@ts-ignore
       req.userId = decoded._id;
 

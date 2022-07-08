@@ -16,8 +16,9 @@ const getPosts = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.json(posts);
     }
     catch (err) {
+        req.error = error;
         console.log(err);
-        res.status(500).json({
+        res.status(503).json({
             message: "Failed to retrieve articles",
         });
     }

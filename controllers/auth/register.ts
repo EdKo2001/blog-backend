@@ -36,7 +36,7 @@ const register = async (req: Request, res: Response) => {
         //@ts-ignore
         _id: user._id,
       },
-      "secret123",
+      process.env.JWT as string,
       {
         expiresIn: "30d",
       }

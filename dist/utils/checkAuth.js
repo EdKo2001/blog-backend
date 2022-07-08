@@ -8,8 +8,7 @@ const checkAuth = (req, res, next) => {
     const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
     if (token) {
         try {
-            const decoded = jsonwebtoken_1.default.verify(token, "secret123");
-            //@ts-ignore
+            const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT);
             req.userId = decoded._id;
             next();
         }

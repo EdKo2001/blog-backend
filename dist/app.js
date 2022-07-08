@@ -9,15 +9,15 @@ const cors_1 = __importDefault(require("cors"));
 const compression_1 = __importDefault(require("compression"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const multer_1 = __importDefault(require("multer"));
-const mongoose_1 = __importDefault(require("mongoose"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const mongoDB_1 = __importDefault(require("./config/mongoDB"));
 const swagger_json_1 = __importDefault(require("./swagger.json"));
-//asdasdas
 const api_1 = require("./routes/api");
 const utils_1 = require("./utils");
+const swaggerSchemas_1 = __importDefault(require("./swaggerSchemas"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
-const PORT = process.env.PORT || 8888;
+(0, mongoDB_1.default)();
 const storage = multer_1.default.diskStorage({
     destination: (_, __, cb) => {
         if (!fs_1.default.existsSync("uploads")) {
@@ -39,20 +39,6 @@ app.use(utils_1.accessLogger);
 app.get("/", (req, res) => {
     res.status(200).json("Home page");
 });
-app.get("/error", (req, res) => {
-    try {
-        const a = 1;
-        //@ts-ignore
-        a = 2;
-        res.json({ a: a });
-    }
-    catch (error) {
-        //@ts-ignore
-        req.error = error;
-        res.status(500).json("internal server error");
-    }
-});
-app.get("/api/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default));
 app.use("/api/auth", api_1.authRoutes);
 app.use("/api/posts", api_1.postRoutes);
 app.post("/upload", utils_1.checkAuth, upload.single("image"), (req, res) => {
@@ -61,21 +47,30 @@ app.post("/upload", utils_1.checkAuth, upload.single("image"), (req, res) => {
         url: `/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.originalname}`,
     });
 });
+const options = {
+    customCss: ".swagger-ui .topbar { display: none }",
+    customSiteTitle: "Blog Api Documentation",
+};
+app.use("/api/api-docs", swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_json_1.default, options));
+app.get("/error", (req, res) => {
+    try {
+        const a = 1;
+        a = 2;
+        res.json({ a: a });
+    }
+    catch (error) {
+        req.error = error;
+        res.status(500).json("internal server error");
+    }
+});
+app.get("/api/models-schema", (_, res) => res.json(swaggerSchemas_1.default));
 app.use((req, res) => {
     res.status(404).json({
         message: "Not Found",
     });
-    //@ts-ignore
     req.error = { message: "Not Found" };
 });
-mongoose_1.default
-    .connect(process.env.MONGODB_URI)
-    .then(() => {
-    app.listen(PORT, () => {
-        console.log("Server listening on http://localhost:" + PORT);
-    });
-})
-    .catch((err) => {
-    console.log(err);
-    process.exit(1);
+const PORT = parseInt(process.env.PORT || "") || 8888;
+app.listen(PORT, () => {
+    console.log("Server listening on http://localhost:" + PORT);
 });

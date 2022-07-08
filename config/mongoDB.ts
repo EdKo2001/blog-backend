@@ -1,18 +1,13 @@
-import { Express } from "express";
-import mongoose, { MongooseError } from "mongoose";
+import mongoose from "mongoose";
 
-const connectDB = async (app: Express, PORT: number) => {
-  mongoose
-    .connect(process.env.MONGODB_URI!)
-    .then(() => {
-      app.listen(PORT, () => {
-        console.log("Server listening on http://localhost:" + PORT);
-      });
-    })
-    .catch((err: MongooseError) => {
-      console.log(err);
-      process.exit(1);
-    });
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI as string);
+  } catch (error) {
+    //@ts-ignore
+    console.error(error.message);
+    process.exit(1);
+  }
 };
 
 export default connectDB;

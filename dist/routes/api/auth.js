@@ -10,5 +10,5 @@ const utils_1 = require("../../utils");
 const router = express_1.default.Router();
 router.post("/login", auth_1.loginValidation, utils_1.handleValidationErrors, controllers_1.authController.login);
 router.post("/register", auth_1.registerValidation, utils_1.handleValidationErrors, controllers_1.authController.register);
-router.get("/me", utils_1.checkAuth, controllers_1.authController.current);
+router.get("/user", utils_1.checkAuth, controllers_1.authController.user);
 exports.default = router;

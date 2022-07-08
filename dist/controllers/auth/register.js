@@ -30,8 +30,8 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const isExistsUser = yield models_1.userModel.findOne({ email: req.body.email });
         if (isExistsUser) {
-            res.status(500).json({
-                message: "The email has already been taken.",
+            return res.status(422).json({
+                message: "The email has already been taken",
             });
         }
         const password = req.body.password;
@@ -44,20 +44,21 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             passwordHash: hash,
         });
         const user = yield doc.save().catch((error) => {
+            req.error = error;
             res.json(error);
         });
         const token = jsonwebtoken_1.default.sign({
-            //@ts-ignore
             _id: user._id,
-        }, "secret123", {
+        }, process.env.JWT, {
             expiresIn: "30d",
         });
         const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
-        res.json(Object.assign(Object.assign({}, userData), { token }));
+        res.status(201).json(Object.assign(Object.assign({}, userData), { token }));
     }
     catch (error) {
         console.log(error);
-        res.status(500).json({
+        req.error = error;
+        res.status(503).json({
             message: "Failed to register",
         });
     }

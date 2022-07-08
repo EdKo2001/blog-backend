@@ -1,2 +1,0 @@
-::1 - - [08/Jul/2022:10:16:46 +0000] "GET / HTTP/1.1" 200 11 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
-::1 - - [08/Jul/2022:10:16:46 +0000] "GET /favicon.ico HTTP/1.1" 404 23 "http://localhost:8080/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"

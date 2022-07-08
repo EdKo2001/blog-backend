@@ -15,10 +15,8 @@ import { errorLogger, accessLogger, checkAuth } from "./utils";
 import swaggerSchemas from "./swaggerSchemas";
 
 const app: Express = express();
-
 dotenv.config();
-
-const PORT = parseInt(process.env.PORT || "") || 8888;
+connectDB();
 
 const storage = multer.diskStorage({
   destination: (_, __, cb) => {
@@ -45,6 +43,22 @@ app.get("/", (req: Request, res: Response) => {
   res.status(200).json("Home page");
 });
 
+app.use("/api/auth", authRoutes);
+app.use("/api/posts", postRoutes);
+
+app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
+  res.json({
+    url: `/uploads/${req.file?.originalname}`,
+  });
+});
+
+const options = {
+  customCss: ".swagger-ui .topbar { display: none }",
+  customSiteTitle: "Blog Api Documentation",
+};
+
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc, options));
+
 app.get("/error", (req: Request, res: Response) => {
   try {
     const a = 1;
@@ -58,23 +72,7 @@ app.get("/error", (req: Request, res: Response) => {
   }
 });
 
-const options = {
-  customCss: ".swagger-ui .topbar { display: none }",
-  customSiteTitle: "Blog Api Documentation",
-};
-
-app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDoc, options));
-
-app.use("/api/auth", authRoutes);
-app.use("/api/posts", postRoutes);
-
 app.get("/api/models-schema", (_, res) => res.json(swaggerSchemas));
-
-app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
-  res.json({
-    url: `/uploads/${req.file?.originalname}`,
-  });
-});
 
 app.use((req, res) => {
   res.status(404).json({
@@ -84,4 +82,7 @@ app.use((req, res) => {
   req.error = { message: "Not Found" };
 });
 
-connectDB(app, PORT);
+const PORT = parseInt(process.env.PORT || "") || 8888;
+app.listen(PORT, () => {
+  console.log("Server listening on http://localhost:" + PORT);
+});

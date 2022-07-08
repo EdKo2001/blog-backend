@@ -20,8 +20,9 @@ const getLastTags = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         res.json(tags);
     }
     catch (err) {
+        req.error = error;
         console.log(err);
-        res.status(500).json({
+        res.status(503).json({
             message: "Failed to get tags",
         });
     }

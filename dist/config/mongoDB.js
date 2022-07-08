@@ -8,30 +8,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = require("../../models");
-const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const mongoose_1 = __importDefault(require("mongoose"));
+const connectDB = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const postId = req.params.id;
-        yield models_1.postModel.updateOne({
-            _id: postId,
-        }, {
-            title: req.body.title,
-            text: req.body.text,
-            imageUrl: req.body.imageUrl,
-            user: req.userId,
-            tags: req.body.tags.split(","),
-        });
-        res.json({
-            success: true,
-        });
+        yield mongoose_1.default.connect(process.env.MONGODB_URI);
     }
-    catch (err) {
-        req.error = error;
-        console.log(err);
-        res.status(503).json({
-            message: "Failed to update article",
-        });
+    catch (error) {
+        console.error(error.message);
+        process.exit(1);
     }
 });
-exports.default = updatePost;
+exports.default = connectDB;

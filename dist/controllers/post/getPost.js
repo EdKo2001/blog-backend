@@ -20,9 +20,7 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             $inc: { viewsCount: 1 },
         }, {
             returnDocument: "after",
-        }, 
-        //@ts-ignore
-        (err, doc) => {
+        }, (err, doc) => {
             if (err) {
                 console.log(err);
                 return res.status(500).json({
@@ -39,8 +37,9 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             .populate("user");
     }
     catch (err) {
+        req.error = error;
         console.log(err);
-        res.status(500).json({
+        res.status(503).json({
             message: "Failed to retrieve articles",
         });
     }

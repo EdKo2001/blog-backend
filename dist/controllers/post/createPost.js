@@ -17,15 +17,15 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             text: req.body.text,
             imageUrl: req.body.imageUrl,
             tags: req.body.tags.split(","),
-            //@ts-ignore
             user: req.userId,
         });
         const post = yield doc.save();
         res.json(post);
     }
     catch (err) {
+        req.error = error;
         console.log(err);
-        res.status(500).json({
+        res.status(503).json({
             message: "Failed to create article",
         });
     }

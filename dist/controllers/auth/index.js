@@ -5,10 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const login_1 = __importDefault(require("./login"));
 const register_1 = __importDefault(require("./register"));
-const current_1 = __importDefault(require("./current"));
+const user_1 = __importDefault(require("./user"));
 const authController = {
     login: login_1.default,
     register: register_1.default,
-    current: current_1.default,
+    user: user_1.default,
 };
 exports.default = authController;

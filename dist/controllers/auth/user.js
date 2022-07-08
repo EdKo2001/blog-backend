@@ -19,41 +19,25 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-const bcrypt_1 = __importDefault(require("bcrypt"));
 const models_1 = require("../../models");
-const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const user = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield models_1.userModel.findOne({ email: req.body.email });
+        const user = yield models_1.userModel.findById(req.userId);
         if (!user) {
             return res.status(404).json({
                 message: "User is not found",
             });
         }
-        const isValidPass = yield bcrypt_1.default.compare(req.body.password, user._doc.passwordHash);
-        if (!isValidPass) {
-            return res.status(400).json({
-                message: "Invalid login or password",
-            });
-        }
-        const token = jsonwebtoken_1.default.sign({
-            _id: user._id,
-        }, process.env.JWT, {
-            expiresIn: "30d",
-        });
         const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
-        res.json(Object.assign(Object.assign({}, userData), { token }));
+        res.json(userData);
     }
     catch (err) {
         console.log(err);
         req.error = error;
         res.status(503).json({
-            message: "Failed to login",
+            message: "Internal Server Error",
         });
     }
 });
-exports.default = login;
+exports.default = user;
