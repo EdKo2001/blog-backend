@@ -12,7 +12,7 @@ import swaggerDoc from "./swagger.json";
 import { authRoutes, postRoutes } from "./routes/api";
 
 import { errorLogger, accessLogger, checkAuth } from "./utils";
-import swaggerSchemas from "./swaggerSchemas";
+import swaggerSchemas from "./config/swaggerSchemas";
 
 const app: Express = express();
 dotenv.config();

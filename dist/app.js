@@ -14,7 +14,7 @@ const mongoDB_1 = __importDefault(require("./config/mongoDB"));
 const swagger_json_1 = __importDefault(require("./swagger.json"));
 const api_1 = require("./routes/api");
 const utils_1 = require("./utils");
-const swaggerSchemas_1 = __importDefault(require("./swaggerSchemas"));
+const swaggerSchemas_1 = __importDefault(require("./config/swaggerSchemas"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 (0, mongoDB_1.default)();

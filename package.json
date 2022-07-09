@@ -3,15 +3,16 @@
   "version": "1.0.5",
   "description": "Blog Back-end part done on Node.js",
   "main": "app.js",
-  "type": "commonjs",
   "scripts": {
     "dev": "nodemon app.ts",
     "start": "ts-node dist/app.js",
     "build": "tsc -p .",
     "lint": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "users:import": "node dist/config/seeder.js",
-    "users:destroy": "node dist/config/seeder.ts -d"
+    "seeder": "node dist/config/seeder.js",
+    "seeder:delete": "node dist/config/seeder.js -d",
+    "dummy-data": "node dist/config/dummy-data-seeder.js",
+    "dummy-data:delete": "node dist/config/dummy-data-seeder.js -d"
   },
   "author": "Eduard Koshkelyab",
   "license": "ISC",

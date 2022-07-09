@@ -1,5 +1,4 @@
 High Priority
-To Do Mongoose seeder
 To Do Tests
 
 
@@ -17,3 +16,4 @@ To Do Error handling (check on front)
 
 Done
 To Do Swagger
+To Do Mongoose seeder

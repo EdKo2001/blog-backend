@@ -16,13 +16,13 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
 
       next();
     } catch (e) {
-      return res.status(403).json({
-        message: "Forbidden",
+      return res.status(401).json({
+        message: "Unauthorized",
       });
     }
   } else {
-    return res.status(403).json({
-      message: "Forbidden",
+    return res.status(401).json({
+      message: "Unauthorized",
     });
   }
 };
