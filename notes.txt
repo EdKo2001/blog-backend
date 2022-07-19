@@ -1,11 +1,11 @@
 High Priority
-To Do Tests
-https://blog.logrocket.com/how-to-write-end-to-end-tests-cypress-nodejs/
+To Do Fix ts issues
+
 
 
 Medium Priority
-To Do Deployment (PM AND DOCKER)
-To Do Fix ts issues
+To Do Tests
+https://blog.logrocket.com/how-to-write-end-to-end-tests-cypress-nodejs/
 
 
 Low Priority
