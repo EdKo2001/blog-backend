@@ -4,7 +4,6 @@ import { userModel } from "../../models";
 
 const user = async (req: Request, res: Response) => {
   try {
-    //@ts-ignore
     const user = await userModel.findById(req.userId);
 
     if (!user) {
@@ -16,9 +15,8 @@ const user = async (req: Request, res: Response) => {
     const { passwordHash, ...userData } = user._doc;
 
     res.json(userData);
-  } catch (err) {
-    console.log(err);
-    //@ts-ignore
+  } catch (error) {
+    console.log(error);
     req.error = error;
     res.status(503).json({
       message: "Internal Server Error",

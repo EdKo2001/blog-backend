@@ -5,12 +5,8 @@ import path from "path";
 
 morgan.token(
   "error",
-  (req: Request) => (
-    //@ts-ignore
-    console.log(req.error),
-    //@ts-ignore
+  (req: Request) =>
     `${req.error?.message}${req.error?.stack ? ` - ` + req.error.stack : ""}`
-  )
 );
 
 const getCustomErrorMorganFormat = () =>
@@ -23,7 +19,7 @@ const getCustomErrorMorganFormat = () =>
     content_length: ":res[content-length]",
     timestamp: ":date[iso]",
     headers_count: "req-headers-length",
-    error: ":error",
+    error: "error",
   });
 
 export const errorLogger = morgan(getCustomErrorMorganFormat(), {

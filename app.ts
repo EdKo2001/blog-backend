@@ -66,7 +66,6 @@ app.get("/error", (req: Request, res: Response) => {
     a = 2;
     res.json({ a: a });
   } catch (error) {
-    //@ts-ignore
     req.error = error;
     res.status(500).json("internal server error");
   }
@@ -78,8 +77,6 @@ app.use((req, res) => {
   res.status(404).json({
     message: "Not Found",
   });
-  //@ts-ignore
-  req.error = { message: "Not Found" };
 });
 
 const PORT = parseInt(process.env.PORT || "") || 8888;

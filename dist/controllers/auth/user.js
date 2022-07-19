@@ -32,8 +32,8 @@ const user = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
         res.json(userData);
     }
-    catch (err) {
-        console.log(err);
+    catch (error) {
+        console.log(error);
         req.error = error;
         res.status(503).json({
             message: "Internal Server Error",

@@ -7,11 +7,7 @@ exports.accessLogger = exports.errorLogger = void 0;
 const fs_1 = __importDefault(require("fs"));
 const morgan_1 = __importDefault(require("morgan"));
 const path_1 = __importDefault(require("path"));
-morgan_1.default.token("error", (req) => {
-    var _a, _b;
-    return (console.log(req.error),
-        `${(_a = req.error) === null || _a === void 0 ? void 0 : _a.message}${((_b = req.error) === null || _b === void 0 ? void 0 : _b.stack) ? ` - ` + req.error.stack : ""}`);
-});
+morgan_1.default.token("error", (req) => { var _a, _b; return `${(_a = req.error) === null || _a === void 0 ? void 0 : _a.message}${((_b = req.error) === null || _b === void 0 ? void 0 : _b.stack) ? ` - ` + req.error.stack : ""}`; });
 const getCustomErrorMorganFormat = () => JSON.stringify({
     method: ":method",
     url: ":url",
@@ -21,7 +17,7 @@ const getCustomErrorMorganFormat = () => JSON.stringify({
     content_length: ":res[content-length]",
     timestamp: ":date[iso]",
     headers_count: "req-headers-length",
-    error: ":error",
+    error: "error",
 });
 exports.errorLogger = (0, morgan_1.default)(getCustomErrorMorganFormat(), {
     skip: (req, res) => res.statusCode < 400,

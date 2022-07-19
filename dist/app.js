@@ -68,7 +68,6 @@ app.use((req, res) => {
     res.status(404).json({
         message: "Not Found",
     });
-    req.error = { message: "Not Found" };
 });
 const PORT = parseInt(process.env.PORT || "") || 8888;
 app.listen(PORT, () => {

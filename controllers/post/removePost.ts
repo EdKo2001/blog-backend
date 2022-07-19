@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { ExtractMongooseArray, MongooseError } from "mongoose";
 
 import { postModel } from "../../models";
 
@@ -10,12 +11,10 @@ const removePost = async (req: Request, res: Response) => {
       {
         _id: postId,
       },
-      //@ts-ignore
-      (err, doc) => {
-        if (err) {
-          //@ts-ignore
+      (error: MongooseError, doc: ExtractMongooseArray<any>) => {
+        typeof doc;
+        if (error) {
           req.error = error;
-          console.log(err);
           return res.status(500).json({
             message: "Failed to delete article",
           });
@@ -32,10 +31,9 @@ const removePost = async (req: Request, res: Response) => {
         });
       }
     );
-  } catch (err) {
-    //@ts-ignore
+  } catch (error) {
     req.error = error;
-    console.log(err);
+    console.log(error);
     res.status(503).json({
       message: "Failed to retrieve articles",
     });

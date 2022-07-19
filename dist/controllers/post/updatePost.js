@@ -26,9 +26,9 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             success: true,
         });
     }
-    catch (err) {
+    catch (error) {
         req.error = error;
-        console.log(err);
+        console.log(error);
         res.status(503).json({
             message: "Failed to update article",
         });

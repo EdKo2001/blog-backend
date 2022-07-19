@@ -9,17 +9,15 @@ const createPost = async (req: Request, res: Response) => {
       text: req.body.text,
       imageUrl: req.body.imageUrl,
       tags: req.body.tags.split(","),
-      //@ts-ignore
       user: req.userId,
     });
 
     const post = await doc.save();
 
     res.json(post);
-  } catch (err) {
-    //@ts-ignore
+  } catch (error) {
     req.error = error;
-    console.log(err);
+    console.log(error);
     res.status(503).json({
       message: "Failed to create article",
     });

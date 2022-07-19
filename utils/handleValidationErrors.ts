@@ -13,7 +13,6 @@ const handleValidationErrors = (
   };
   const errors = validationResult(req).formatWith(errorFormatter);
   if (!errors.isEmpty()) {
-    //@ts-ignore
     req.error = { message: JSON.stringify(errors.array()) };
     return res.status(400).json({ errors: errors.array() });
   }

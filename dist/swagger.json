@@ -10,6 +10,10 @@
         {
             "url": "http://localhost:8888/api",
             "description": "Development server"
+        },
+        {
+            "url": "https://mern-blog-backend-part.herokuapp.com/api",
+            "description": "Production server"
         }
     ],
     "tags": [

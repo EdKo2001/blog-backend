@@ -22,9 +22,9 @@ const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const post = yield doc.save();
         res.json(post);
     }
-    catch (err) {
+    catch (error) {
         req.error = error;
-        console.log(err);
+        console.log(error);
         res.status(503).json({
             message: "Failed to create article",
         });

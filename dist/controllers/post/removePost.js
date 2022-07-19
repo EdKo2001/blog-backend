@@ -15,10 +15,10 @@ const removePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const postId = req.params.id;
         models_1.postModel.findOneAndDelete({
             _id: postId,
-        }, (err, doc) => {
-            if (err) {
+        }, (error, doc) => {
+            typeof doc;
+            if (error) {
                 req.error = error;
-                console.log(err);
                 return res.status(500).json({
                     message: "Failed to delete article",
                 });
@@ -33,9 +33,9 @@ const removePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         });
     }
-    catch (err) {
+    catch (error) {
         req.error = error;
-        console.log(err);
+        console.log(error);
         res.status(503).json({
             message: "Failed to retrieve articles",
         });

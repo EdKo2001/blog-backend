@@ -14,7 +14,6 @@ const updatePost = async (req: Request, res: Response) => {
         title: req.body.title,
         text: req.body.text,
         imageUrl: req.body.imageUrl,
-        //@ts-ignore
         user: req.userId,
         tags: req.body.tags.split(","),
       }
@@ -23,10 +22,9 @@ const updatePost = async (req: Request, res: Response) => {
     res.json({
       success: true,
     });
-  } catch (err) {
-    //@ts-ignore
+  } catch (error) {
     req.error = error;
-    console.log(err);
+    console.log(error);
     res.status(503).json({
       message: "Failed to update article",
     });

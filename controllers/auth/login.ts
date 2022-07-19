@@ -35,16 +35,14 @@ const login = async (req: Request, res: Response) => {
       }
     );
 
-    //@ts-ignore
     const { passwordHash, ...userData } = user._doc;
 
     res.json({
       ...userData,
       token,
     });
-  } catch (err) {
-    console.log(err);
-    //@ts-ignore
+  } catch (error) {
+    console.log(error);
     req.error = error;
     res.status(503).json({
       message: "Failed to login",

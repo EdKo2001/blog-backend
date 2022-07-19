@@ -12,10 +12,9 @@ const getLastTags = async (req: Request, res: Response) => {
       .slice(0, 5);
 
     res.json(tags);
-  } catch (err) {
-    //@ts-ignore
+  } catch (error) {
     req.error = error;
-    console.log(err);
+    console.log(error);
     res.status(503).json({
       message: "Failed to get tags",
     });

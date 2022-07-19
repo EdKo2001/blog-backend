@@ -11,7 +11,7 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
         token,
         process.env.JWT as string
       ) as jwt.JwtPayload;
-      //@ts-ignore
+
       req.userId = decoded._id;
 
       next();

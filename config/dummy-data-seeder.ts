@@ -45,7 +45,6 @@ const importUsers = async () => {
 
     process.exit();
   } catch (error) {
-    //@ts-ignore
     console.log(error);
     process.exit(1);
   }
@@ -67,7 +66,6 @@ const deleteUsers = async () => {
 
     process.exit();
   } catch (error) {
-    //@ts-ignore
     console.log(error);
     process.exit(1);
   }
