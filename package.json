@@ -15,7 +15,7 @@
     "dummy-data": "node dist/config/dummy-data-seeder.js",
     "dummy-data:delete": "node dist/config/dummy-data-seeder.js -d"
   },
-  "author": "Eduard Koshkelyab",
+  "author": "Eduard Koshkelyan",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.0.1",
