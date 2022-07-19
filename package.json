@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "nodemon app.ts",
-    "start": "ts-node dist/app.js",
+    "start": "node dist/app.js",
     "build": "tsc -p .",
     "lint": "eslint . --fix",
     "test:jest": "jest --config ./jest.config.json",
