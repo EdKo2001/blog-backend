@@ -4,6 +4,7 @@ import { postModel } from "../../models";
 
 const createPost = async (req: Request, res: Response) => {
   try {
+    console.log(req.body.tags);
     const doc = new postModel({
       title: req.body.title,
       text: req.body.text,

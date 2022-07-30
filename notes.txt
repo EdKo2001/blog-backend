@@ -4,6 +4,7 @@ High Priority
 Medium Priority
 To Do Tests
 https://blog.logrocket.com/how-to-write-end-to-end-tests-cypress-nodejs/
+https://medium.com/@natnael.awel/how-to-setup-testing-for-typescript-with-express-js-example-83d3efbb6fd4
 
 
 Low Priority
