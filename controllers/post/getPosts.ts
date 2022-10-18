@@ -4,7 +4,30 @@ import { postModel } from "../../models";
 
 const getPosts = async (req: Request, res: Response) => {
   try {
-    const posts = await postModel.find().populate("user").exec();
+    let posts;
+
+    if (req.query.popular === "") {
+      posts = await postModel
+        .find()
+        .sort({ viewsCount: -1 })
+        .populate("user")
+        .exec();
+    } else if (req.query.hasOwnProperty("tag")) {
+      if (req.query.tag === "") {
+        return res.status(400).json({ error: "Tag can't be empty" });
+      }
+      posts = await postModel
+        .find({ tags: { $in: req.query.tag } })
+        .sort({ createdAt: -1 })
+        .populate("user")
+        .exec();
+    } else {
+      posts = await postModel
+        .find()
+        .sort({ createdAt: -1 })
+        .populate("user")
+        .exec();
+    }
     res.json(posts);
   } catch (error) {
     req.error = error;

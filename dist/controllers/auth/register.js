@@ -52,7 +52,7 @@ const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }, process.env.JWT, {
             expiresIn: "30d",
         });
-        const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
+        const { passwordHash } = user, userData = __rest(user, ["passwordHash"]);
         res.status(201).json(Object.assign(Object.assign({}, userData), { token }));
     }
     catch (error) {

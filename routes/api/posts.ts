@@ -32,4 +32,27 @@ router.patch(
   postController.updatePost
 );
 
+router.get("/:postId/comments", postController.getComments);
+
+router.put(
+  "/:postId/comments",
+  checkAuth,
+  // postCreateValidation,
+  handleValidationErrors,
+  postController.createComment
+);
+
+router.get("/:postId/likes", postController.getLikes);
+
+router.put(
+  "/:postId/like",
+  checkAuth, // postCreateValidation,
+  postController.createLike
+);
+router.put(
+  "/:postId/unlike",
+  checkAuth, // postCreateValidation,
+  postController.deleteLike
+);
+
 export default router;

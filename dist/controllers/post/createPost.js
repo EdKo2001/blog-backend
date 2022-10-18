@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log(req.body.tags);
         const doc = new models_1.postModel({
             title: req.body.title,
             text: req.body.text,

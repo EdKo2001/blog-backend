@@ -9,14 +9,14 @@ const login = async (req: Request, res: Response) => {
     const user = await userModel.findOne({ email: req.body.email });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(422).json({
         message: "User is not found",
       });
     }
 
     const isValidPass = await bcrypt.compare(
       req.body.password,
-      user._doc.passwordHash
+      user.passwordHash
     );
 
     if (!isValidPass) {

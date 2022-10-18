@@ -4,14 +4,23 @@ import { postModel } from "../../models";
 
 const createPost = async (req: Request, res: Response) => {
   try {
-    console.log(req.body.tags);
-    const doc = new postModel({
-      title: req.body.title,
-      text: req.body.text,
-      imageUrl: req.body.imageUrl,
-      tags: req.body.tags.split(","),
-      user: req.userId,
-    });
+    let doc;
+    if (Array.isArray(req.body.tags) && req.body.tags.length > 0) {
+      doc = new postModel({
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        tags: req.body.tags.split(","),
+        user: req.userId,
+      });
+    } else {
+      doc = new postModel({
+        title: req.body.title,
+        text: req.body.text,
+        imageUrl: req.body.imageUrl,
+        user: req.userId,
+      });
+    }
 
     const post = await doc.save();
 

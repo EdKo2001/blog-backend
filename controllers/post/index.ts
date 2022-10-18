@@ -6,6 +6,13 @@ import updatePost from "./updatePost";
 
 import getLastTags from "./getLastTags";
 
+import createComment from "./createComment";
+import getComments from "./getComments";
+
+import createLike from "./createLike";
+import getLikes from "./getLikes";
+import deleteLike from "./deleteLike";
+
 const postController = {
   createPost,
   getPosts,
@@ -13,6 +20,11 @@ const postController = {
   removePost,
   updatePost,
   getLastTags,
+  createComment,
+  getComments,
+  createLike,
+  getLikes,
+  deleteLike,
 };
 
 export default postController;

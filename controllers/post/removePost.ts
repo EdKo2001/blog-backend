@@ -12,7 +12,6 @@ const removePost = async (req: Request, res: Response) => {
         _id: postId,
       },
       (error: MongooseError, doc: ExtractMongooseArray<any>) => {
-        typeof doc;
         if (error) {
           req.error = error;
           return res.status(500).json({

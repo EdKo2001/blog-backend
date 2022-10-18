@@ -30,11 +30,11 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield models_1.userModel.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(404).json({
+            return res.status(422).json({
                 message: "User is not found",
             });
         }
-        const isValidPass = yield bcrypt_1.default.compare(req.body.password, user._doc.passwordHash);
+        const isValidPass = yield bcrypt_1.default.compare(req.body.password, user.passwordHash);
         if (!isValidPass) {
             return res.status(400).json({
                 message: "Invalid login or password",
@@ -45,7 +45,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }, process.env.JWT, {
             expiresIn: "30d",
         });
-        const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
+        const { passwordHash } = user, userData = __rest(user, ["passwordHash"]);
         res.json(Object.assign(Object.assign({}, userData), { token }));
     }
     catch (error) {
