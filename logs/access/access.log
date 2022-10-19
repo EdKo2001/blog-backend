@@ -1,4 +1,2 @@
-::ffff:127.0.0.1 - - [19/Oct/2022:17:51:31 +0000] "GET /api/posts?page=1&limit=1 HTTP/1.1" 200 - "-" "Thunder Client (https://www.thunderclient.com)"
-::ffff:127.0.0.1 - - [19/Oct/2022:17:51:52 +0000] "GET /api/posts?page=2&limit=1 HTTP/1.1" 200 - "-" "Thunder Client (https://www.thunderclient.com)"
-::ffff:127.0.0.1 - - [19/Oct/2022:17:51:55 +0000] "GET /api/posts?page=4&limit=1 HTTP/1.1" 200 - "-" "Thunder Client (https://www.thunderclient.com)"
-::ffff:127.0.0.1 - - [19/Oct/2022:17:52:10 +0000] "GET /api/posts?page=1&limit=1 HTTP/1.1" 200 - "-" "Thunder Client (https://www.thunderclient.com)"
+::ffff:127.0.0.1 - - [19/Oct/2022:17:56:59 +0000] "GET /api/posts/634c143d6d493a2913f6af54/comments HTTP/1.1" 200 - "-" "Thunder Client (https://www.thunderclient.com)"
+::ffff:127.0.0.1 - - [19/Oct/2022:17:57:00 +0000] "GET /api/posts?page=1&limit=1 HTTP/1.1" 200 - "-" "Thunder Client (https://www.thunderclient.com)"
