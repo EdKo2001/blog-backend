@@ -4,7 +4,7 @@ import getPost from "./getPost";
 import removePost from "./removePost";
 import updatePost from "./updatePost";
 
-import getLastTags from "./getLastTags";
+import getTags from "./getTags";
 
 import createComment from "./createComment";
 import getComments from "./getComments";
@@ -19,7 +19,7 @@ const postController = {
   getPost,
   removePost,
   updatePost,
-  getLastTags,
+  getTags,
   createComment,
   getComments,
   createLike,

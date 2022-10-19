@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 
 import { postModel } from "../../models";
+import { paginate } from "../../utils";
 
 const getPosts = async (req: Request, res: Response) => {
   try {
     let posts;
 
-    if (req.query.popular === "") {
+    if (req.query.hasOwnProperty("popular")) {
+      if (req.query.popular !== "") {
+        return res.status(400).json({ error: "Popular must be empty" });
+      }
       posts = await postModel
         .find()
         .sort({ viewsCount: -1 })
@@ -21,6 +25,15 @@ const getPosts = async (req: Request, res: Response) => {
         .sort({ createdAt: -1 })
         .populate("user")
         .exec();
+    } else if (req.query.hasOwnProperty("relevant")) {
+      if (req.query.relevant !== "") {
+        return res.status(400).json({ error: "Popular must be empty" });
+      }
+      posts = await postModel
+        .find()
+        .sort({ likes: -1 })
+        .populate("user")
+        .exec();
     } else {
       posts = await postModel
         .find()
@@ -28,7 +41,7 @@ const getPosts = async (req: Request, res: Response) => {
         .populate("user")
         .exec();
     }
-    res.json(posts);
+    res.json(paginate(posts, req.query.page, req.query.limit));
   } catch (error) {
     req.error = error;
     console.log(error);

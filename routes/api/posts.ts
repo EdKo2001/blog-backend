@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/", postController.getPosts);
 
-router.get("/tags", postController.getLastTags);
+router.get("/tags", postController.getTags);
 
 router.get("/:id", postController.getPost);
 
