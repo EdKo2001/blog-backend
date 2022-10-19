@@ -28,7 +28,7 @@ const paginate = (
     }
 
     results.total = data.length;
-    results.results = data.slice(0, limit);
+    results.results = data.slice(startIndex, endIndex);
 
     return results;
   }
