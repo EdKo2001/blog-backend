@@ -14,7 +14,7 @@ const updatePost = async (req: Request, res: Response) => {
         title: req.body.title,
         text: req.body.text,
         imageUrl: req.body.imageUrl,
-        user: req.userId,
+        user: req.user.id,
         tags: req.body.tags.split(","),
       }
     );

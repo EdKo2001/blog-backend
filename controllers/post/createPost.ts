@@ -11,14 +11,14 @@ const createPost = async (req: Request, res: Response) => {
         text: req.body.text,
         imageUrl: req.body.imageUrl,
         tags: req.body.tags.split(","),
-        user: req.userId,
+        user: req.user.id,
       });
     } else {
       doc = new postModel({
         title: req.body.title,
         text: req.body.text,
         imageUrl: req.body.imageUrl,
-        user: req.userId,
+        user: req.user.id,
       });
     }
 

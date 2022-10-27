@@ -4,7 +4,7 @@ import { userModel } from "../../models";
 
 const user = async (req: Request, res: Response) => {
   try {
-    const user = await userModel.findById(req.userId);
+    const user = await userModel.findById(req.user.id);
 
     if (!user) {
       return res.status(404).json({

@@ -5,7 +5,7 @@ import { postModel } from "../../models";
 const deleteLike = async (req: Request, res: Response) => {
   try {
     const like = {
-      user: req.userId,
+      user: req.user.id,
     };
 
     postModel

@@ -5,7 +5,7 @@ import { postModel } from "../../models";
 const createLike = async (req: Request, res: Response) => {
   try {
     const like = {
-      user: req.userId,
+      user: req.user.id,
       createdAt: Date.now(),
     };
 

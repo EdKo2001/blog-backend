@@ -12,7 +12,9 @@ const checkAuth = (req: Request, res: Response, next: NextFunction) => {
         process.env.JWT as string
       ) as jwt.JwtPayload;
 
-      req.userId = decoded._id;
+      req.user = {};
+      req.user.id = decoded._id;
+      req.user.role = decoded.role;
 
       next();
     } catch (e) {

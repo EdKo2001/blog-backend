@@ -1,6 +1,12 @@
 declare namespace Express {
+  import { Schema } from "mongoose";
+  import ROLES from "../constants/ROLES";
+
   interface Request {
-    userId: number;
+    user: {
+      id?: Schema.Types.ObjectId;
+      role?: ROLES;
+    };
     error: {
       name?: string;
       message: string;

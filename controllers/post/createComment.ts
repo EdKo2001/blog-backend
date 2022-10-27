@@ -7,7 +7,7 @@ const createComment = async (req: Request, res: Response) => {
   try {
     const comment = {
       text: req.body.text,
-      user: req.userId,
+      user: req.user.id,
       createdAt: Date.now(),
     };
 
