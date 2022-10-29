@@ -6,7 +6,7 @@ import { postCreateValidation } from "../../validations/post";
 
 import { checkAuth, authRole, handleValidationErrors } from "../../utils";
 
-import { canDeletePost } from "../../permissions/post";
+import { canDeletePost, canUpdatePost } from "../../permissions/post";
 
 import ROLES from "../../constants/ROLES";
 
@@ -32,6 +32,7 @@ router.delete("/:id", checkAuth, canDeletePost, postController.removePost);
 router.patch(
   "/:id",
   checkAuth,
+  canUpdatePost,
   postCreateValidation,
   handleValidationErrors,
   postController.updatePost

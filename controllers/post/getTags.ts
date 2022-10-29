@@ -1,28 +1,25 @@
+import { constants } from "buffer";
 import { Request, Response } from "express";
 
 import { postModel } from "../../models";
 
-import { mostFreqStr } from "../../utils";
+import { mostFreqStr, paginate } from "../../utils";
 
 const getTags = async (req: Request, res: Response) => {
+  if (
+    isNaN(req.query.page as number & string) ||
+    isNaN(req.query.limit as number & string)
+  ) {
+    return res.status(400).json({
+      message: "Page and Limit properties are required",
+    });
+  }
   try {
     const posts = await postModel.find();
 
-    let tags;
-    if (req.query.limit) {
-      if (!(req.query.limit as string).match("[0-9]+")) {
-        return res
-          .status(400)
-          .json({ message: "Limit should contain only numbers" });
-      }
-      tags = posts
-        .map((obj) => obj.tags)
-        .flat()
-        .slice(0, req.query.limit as any);
-    } else {
-      tags = mostFreqStr(posts.map((obj) => obj.tags).flat());
-    }
-    res.json(tags);
+    const tags = mostFreqStr(posts.map((obj) => obj.tags).flat());
+
+    res.json(paginate(tags, req.query.page, req.query.limit));
   } catch (error) {
     req.error = error;
     console.log(error);

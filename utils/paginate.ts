@@ -33,6 +33,15 @@ const paginate = (
     return results;
   }
   return async (req: Request, res: Response, next: NextFunction) => {
+    if (
+      isNaN(req.query.page as number & string) ||
+      isNaN(req.query.limit as number & string)
+    ) {
+      return res.status(400).json({
+        message: "Page and Limit properties are required",
+      });
+    }
+
     const page = parseInt(req.query.page as string);
     const limit = parseInt(req.query.limit as string);
 

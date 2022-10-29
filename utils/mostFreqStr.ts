@@ -1,7 +1,5 @@
 const mostFreqStr = (array: string[]) => {
   const obj = {};
-  let mostFreq = 0,
-    which: string[] = [];
 
   array.forEach((ea) => {
     //@ts-ignore
@@ -12,20 +10,12 @@ const mostFreqStr = (array: string[]) => {
       //@ts-ignore
       obj[ea]++;
     }
-    //@ts-ignore
-    if (obj[ea] > mostFreq) {
-      //@ts-ignore
-      mostFreq = obj[ea];
-      which = [ea];
-      //@ts-ignore
-    } else if (obj[ea] === mostFreq) {
-      which.push(ea);
-    }
   });
 
-  // console.log("which", which);
-
-  return which;
+  return Object.entries(obj)
+    .sort((a: [string, any], b: [string, any]) => b[1] - a[1])
+    .flat()
+    .filter((key) => typeof key === "string");
 };
 
 export default mostFreqStr;
