@@ -9,6 +9,7 @@ const createPost = async (req: Request, res: Response) => {
       doc = new postModel({
         title: req.body.title,
         text: req.body.text,
+        status: req.body.status,
         imageUrl: req.body.imageUrl,
         tags: req.body.tags.split(","),
         user: req.user.id,
@@ -17,6 +18,7 @@ const createPost = async (req: Request, res: Response) => {
       doc = new postModel({
         title: req.body.title,
         text: req.body.text,
+        status: req.body.status,
         imageUrl: req.body.imageUrl,
         user: req.user.id,
       });

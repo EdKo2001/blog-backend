@@ -7,13 +7,8 @@ export const canDeletePost = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(
-    req.user.role,
-    req.user.role !== ROLES.ADMIN || req.user.role !== ROLES.AUTHOR
-  );
-  if (req.user.role !== ROLES.ADMIN || req.user.role !== ROLES.AUTHOR) {
-    res.status(401);
-    return res.send("Not Allowed");
+  if (req.user.role !== ROLES.ADMIN && req.user.role !== ROLES.AUTHOR) {
+    return res.status(401).json("Not Allowed");
   }
 
   next();
@@ -24,13 +19,8 @@ export const canUpdatePost = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(
-    req.user.role,
-    req.user.role !== ROLES.ADMIN || req.user.role !== ROLES.AUTHOR
-  );
-  if (req.user.role !== ROLES.ADMIN || req.user.role !== ROLES.AUTHOR) {
-    res.status(401);
-    return res.send("Not Allowed");
+  if (req.user.role !== ROLES.ADMIN && req.user.role !== ROLES.AUTHOR) {
+    return res.status(401).json("Not Allowed");
   }
 
   next();

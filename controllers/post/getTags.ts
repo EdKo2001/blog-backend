@@ -14,6 +14,7 @@ const getTags = async (req: Request, res: Response) => {
       message: "Page and Limit properties are required",
     });
   }
+
   try {
     const posts = await postModel.find();
 

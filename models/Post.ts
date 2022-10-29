@@ -1,8 +1,11 @@
 import { Schema, model, Document } from "mongoose";
 
+import POST_STATUSES from "../constants/POST_STATUSES";
+
 export interface IPost extends Document {
   title: string;
   text: string;
+  status: POST_STATUSES;
   tags: string[];
   viewsCount: number;
   likes: [{ user: Schema.Types.ObjectId; createdAt: Date }];
@@ -24,6 +27,11 @@ const PostSchema = new Schema(
     tags: {
       type: Array,
       default: [],
+    },
+    status: {
+      type: String,
+      enum: POST_STATUSES,
+      default: POST_STATUSES.PUBLISHED,
     },
     viewsCount: {
       type: Number,

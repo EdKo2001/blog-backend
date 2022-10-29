@@ -14,12 +14,12 @@ const updatePost = async (req: Request, res: Response) => {
         title: req.body.title,
         text: req.body.text,
         imageUrl: req.body.imageUrl,
-        user: req.user.id,
+        status: req.body.status,
         tags: req.body.tags.split(","),
       }
     );
 
-    res.json({
+    res.status(204).json({
       success: true,
     });
   } catch (error) {
