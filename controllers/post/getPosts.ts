@@ -68,10 +68,27 @@ const getPosts = async (req: Request, res: Response) => {
       ) as jwt.JwtPayload;
 
       if (req.query.own !== "") {
-        return res.status(400).json({ error: "own must  be empty" });
+        return res.status(400).json({ error: "own must be empty" });
       }
       posts = await postModel
-        .find({ user: { $eq: decoded._id } })
+        .find({ user: decoded._id })
+        .sort({ createdAt: -1 })
+        .populate("user")
+        .exec();
+    } else if (req.query.hasOwnProperty("favorites")) {
+      const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
+
+      const decoded = jwt.verify(
+        token,
+        process.env.JWT as string
+      ) as jwt.JwtPayload;
+
+      if (req.query.favorites !== "") {
+        return res.status(400).json({ error: "favorites must be empty" });
+      }
+
+      posts = await postModel
+        .find({ likes: { $elemMatch: { user: decoded._id } } })
         .sort({ createdAt: -1 })
         .populate("user")
         .exec();

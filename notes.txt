@@ -1,5 +1,8 @@
 High Priority
 Implement User log out
+FIX: Code Duplication
+FEAT: Create a utility to get the user ID
+FIX: getPost of drafted, only the creator and admin
 
 Medium Priority
 To Do Tests
