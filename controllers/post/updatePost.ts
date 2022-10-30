@@ -5,6 +5,13 @@ import { postModel } from "../../models";
 const updatePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
+    const post = await postModel.findById(postId);
+
+    if (post?.user.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "Forbidden",
+      });
+    }
 
     if (Array.isArray(req.body.tags) && req.body.tags.length > 0) {
       await postModel.updateOne(

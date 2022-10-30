@@ -6,6 +6,13 @@ import { postModel } from "../../models";
 const removePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
+    const post = await postModel.findById(postId);
+
+    if (post?.user.toString() !== req.user.id) {
+      return res.status(403).json({
+        message: "Forbidden",
+      });
+    }
 
     postModel.findOneAndDelete(
       {
