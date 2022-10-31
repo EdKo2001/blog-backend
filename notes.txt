@@ -3,6 +3,7 @@ FIX: Code Duplication
 FEAT: Create a utility to get the user ID
 FEAT: SEARCH for the whole website
 FEAT: SEARCH for the admin
+FEAT: posts url by slug
 
 Medium Priority
 To Do Tests
