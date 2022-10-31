@@ -2,7 +2,6 @@ High Priority
 Implement User log out
 FIX: Code Duplication
 FEAT: Create a utility to get the user ID
-FIX: getPost of drafted, only the creator and admin
 
 Medium Priority
 To Do Tests
@@ -12,13 +11,3 @@ https://medium.com/@natnael.awel/how-to-setup-testing-for-typescript-with-expres
 
 Low Priority
 
-
-Ready 4 Test
-To Do Error handling (check on front)
-
-
-Done
-To Do Swagger
-To Do Mongoose seeder
-To Do Deployment
-To Do Fix ts issues
