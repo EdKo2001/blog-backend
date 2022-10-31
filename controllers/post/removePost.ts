@@ -3,12 +3,17 @@ import { ExtractMongooseArray, MongooseError } from "mongoose";
 
 import { postModel } from "../../models";
 
+import ROLES from "../../constants/ROLES";
+
 const removePost = async (req: Request, res: Response) => {
   try {
     const postId = req.params.id;
     const post = await postModel.findById(postId);
 
-    if (post?.user.toString() !== req.user.id) {
+    if (
+      post?.user.toString() !== req.user.id &&
+      req.user.role !== ROLES.ADMIN
+    ) {
       return res.status(403).json({
         message: "Forbidden",
       });
@@ -32,7 +37,7 @@ const removePost = async (req: Request, res: Response) => {
           });
         }
 
-        res.json({
+        res.status(204).json({
           success: true,
         });
       }

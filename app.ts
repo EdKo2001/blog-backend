@@ -39,14 +39,10 @@ app.use(compression());
 app.use(errorLogger);
 app.use(accessLogger);
 
-app.get("/", (req: Request, res: Response) => {
-  res.status(200).json("Home page");
-});
-
 app.use("/api/auth", authRoutes);
 app.use("/api/posts", postRoutes);
 
-app.post("/upload", checkAuth, upload.single("image"), (req, res) => {
+app.post("/api/upload", checkAuth, upload.single("image"), (req, res) => {
   res.json({
     url: `/uploads/${req.file?.originalname}`,
   });
@@ -80,8 +76,9 @@ app.use((req, res) => {
 });
 
 const PORT = parseInt(process.env.PORT || "") || 8888;
+
 app.listen(PORT, () => {
-  console.log("Server listening on http://localhost:" + PORT);
+  console.log("Server is running on http://localhost:" + PORT);
 });
 
 export default app;

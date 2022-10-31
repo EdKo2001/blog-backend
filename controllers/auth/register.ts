@@ -37,7 +37,7 @@ const register = async (req: Request, res: Response) => {
       },
       process.env.JWT as string,
       {
-        expiresIn: "30d",
+        expiresIn: "24h",
       }
     );
 

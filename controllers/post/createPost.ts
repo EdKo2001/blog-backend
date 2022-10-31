@@ -5,7 +5,8 @@ import { postModel } from "../../models";
 const createPost = async (req: Request, res: Response) => {
   try {
     let doc;
-    if (Array.isArray(req.body.tags) && req.body.tags.length > 0) {
+
+    if (req.body.tags) {
       doc = new postModel({
         title: req.body.title,
         text: req.body.text,

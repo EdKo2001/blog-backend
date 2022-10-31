@@ -1,7 +1,8 @@
 High Priority
-Implement User log out
 FIX: Code Duplication
 FEAT: Create a utility to get the user ID
+FEAT: SEARCH for the whole website
+FEAT: SEARCH for the admin
 
 Medium Priority
 To Do Tests
