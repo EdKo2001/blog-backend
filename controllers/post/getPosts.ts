@@ -5,17 +5,12 @@ import { postModel } from "../../models";
 
 import { paginate } from "../../utils";
 
+import { paginateValidate } from "../../validations";
+
 import POST_STATUSES from "../../constants/POST_STATUSES";
 
 const getPosts = async (req: Request, res: Response) => {
-  if (
-    isNaN(req.query.page as number & string) ||
-    isNaN(req.query.limit as number & string)
-  ) {
-    return res.status(400).json({
-      message: "Page and Limit properties are required",
-    });
-  }
+  paginateValidate();
 
   try {
     let posts;
@@ -70,6 +65,7 @@ const getPosts = async (req: Request, res: Response) => {
       if (req.query.own !== "") {
         return res.status(400).json({ error: "own must be empty" });
       }
+
       posts = await postModel
         .find({ user: decoded._id })
         .sort({ createdAt: -1 })

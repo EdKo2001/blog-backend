@@ -5,15 +5,10 @@ import { postModel } from "../../models";
 
 import { mostFreqStr, paginate } from "../../utils";
 
+import { paginateValidate } from "../../validations";
+
 const getTags = async (req: Request, res: Response) => {
-  if (
-    isNaN(req.query.page as number & string) ||
-    isNaN(req.query.limit as number & string)
-  ) {
-    return res.status(400).json({
-      message: "Page and Limit properties are required",
-    });
-  }
+  paginateValidate();
 
   try {
     const posts = await postModel.find();

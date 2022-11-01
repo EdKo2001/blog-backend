@@ -1,6 +1,4 @@
 High Priority
-FIX: Code Duplication
-FEAT: Create a utility to get the user ID
 FIX: check the returned data
 FEAT: SEARCH for the whole website
 FEAT: SEARCH for the admin
