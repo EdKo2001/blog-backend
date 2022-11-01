@@ -16,7 +16,7 @@ router.get("/", postController.getPosts);
 
 router.get("/tags", postController.getTags);
 
-router.get("/:id", postController.getPost);
+router.get("/:slug", postController.getPost);
 
 router.post(
   "/",
@@ -27,10 +27,10 @@ router.post(
   postController.createPost
 );
 
-router.delete("/:id", checkAuth, canDeletePost, postController.removePost);
+router.delete("/:slug", checkAuth, canDeletePost, postController.removePost);
 
 router.patch(
-  "/:id",
+  "/:slug",
   checkAuth,
   canUpdatePost,
   postCreateValidation,
@@ -38,25 +38,25 @@ router.patch(
   postController.updatePost
 );
 
-router.get("/:postId/comments", postController.getComments);
+router.get("/:slug/comments", postController.getComments);
 
 router.put(
-  "/:postId/comments",
+  "/:slug/comments",
   checkAuth,
   // postCreateValidation,
   handleValidationErrors,
   postController.createComment
 );
 
-router.get("/:postId/likes", postController.getLikes);
+router.get("/:slug/likes", postController.getLikes);
 
 router.put(
-  "/:postId/like",
+  "/:slug/like",
   checkAuth, // postCreateValidation,
   postController.createLike
 );
 router.put(
-  "/:postId/unlike",
+  "/:slug/unlike",
   checkAuth, // postCreateValidation,
   postController.deleteLike
 );

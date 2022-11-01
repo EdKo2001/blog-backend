@@ -9,6 +9,10 @@ const createPost = async (req: Request, res: Response) => {
     if (req.body.tags) {
       doc = new postModel({
         title: req.body.title,
+        slug: req.body.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^\w-]+/g, ""),
         text: req.body.text,
         status: req.body.status,
         imageUrl: req.body.imageUrl,
@@ -18,6 +22,10 @@ const createPost = async (req: Request, res: Response) => {
     } else {
       doc = new postModel({
         title: req.body.title,
+        slug: req.body.title
+          .toLowerCase()
+          .replace(/ /g, "-")
+          .replace(/[^\w-]+/g, ""),
         text: req.body.text,
         status: req.body.status,
         imageUrl: req.body.imageUrl,

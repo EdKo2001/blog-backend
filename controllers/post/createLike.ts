@@ -10,8 +10,8 @@ const createLike = async (req: Request, res: Response) => {
     };
 
     postModel
-      .findByIdAndUpdate(
-        req.params.postId,
+      .findOneAndUpdate(
+        { slug: req.params.slug },
         { $push: { likes: like } },
         { new: true }
       )

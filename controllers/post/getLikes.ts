@@ -4,9 +4,12 @@ import { postModel } from "../../models";
 
 const getLikes = async (req: Request, res: Response) => {
   try {
-    const foundLikes = await postModel.findById(req.params.postId, {
-      likes: 1,
-    });
+    const foundLikes = await postModel.findOne(
+      { slug: req.params.slug },
+      {
+        likes: 1,
+      }
+    );
 
     if (!foundLikes) {
       return res.status(404).json({

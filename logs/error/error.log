@@ -1,5 +1,0 @@
-{"method":"POST","url":"/api/posts","http_version":"1.1","response_time":"15.460","status":"400","content_length":"77","timestamp":"2022-10-31T15:31:13.529Z","headers_count":"req-headers-length","error":"error"}
-{"method":"GET","url":"/api/uploads/Screenshot_1.png","http_version":"1.1","response_time":"1.613","status":"404","content_length":"23","timestamp":"2022-10-31T15:31:17.359Z","headers_count":"req-headers-length","error":"error"}
-{"method":"GET","url":"/api/uploads/Screenshot_1.png","http_version":"1.1","response_time":"0.971","status":"404","content_length":"23","timestamp":"2022-10-31T15:31:19.490Z","headers_count":"req-headers-length","error":"error"}
-{"method":"GET","url":"/api/uploads/Screenshot_1.png","http_version":"1.1","response_time":"0.658","status":"404","content_length":"23","timestamp":"2022-10-31T15:31:21.683Z","headers_count":"req-headers-length","error":"error"}
-{"method":"GET","url":"/api/uploads/Screenshot_1.png","http_version":"1.1","response_time":"0.493","status":"404","content_length":"23","timestamp":"2022-10-31T15:31:30.031Z","headers_count":"req-headers-length","error":"error"}

@@ -5,7 +5,7 @@ import { postModel } from "../../models";
 const getComments = async (req: Request, res: Response) => {
   try {
     const foundComments = await postModel
-      .findById(req.params.postId, { comments: 1 })
+      .findOne({ slug: req.params.slug }, { comments: 1 })
       .populate("comments.user", "fullName avatarUrl");
 
     if (!foundComments) {

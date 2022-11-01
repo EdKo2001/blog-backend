@@ -4,12 +4,12 @@ import { postModel } from "../../models";
 
 const getPost = async (req: Request, res: Response) => {
   try {
-    const postId = req.params.id;
+    const slug = req.params.slug;
 
     postModel
       .findOneAndUpdate(
         {
-          _id: postId,
+          slug,
         },
         {
           $inc: { viewsCount: 1 },

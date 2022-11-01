@@ -6,8 +6,8 @@ import ROLES from "../../constants/ROLES";
 
 const updatePost = async (req: Request, res: Response) => {
   try {
-    const postId = req.params.id;
-    const post = await postModel.findById(postId);
+    const slug = req.params.slug;
+    const post = await postModel.findOne({ slug });
 
     if (
       post?.user.toString() !== req.user.id &&
@@ -21,7 +21,7 @@ const updatePost = async (req: Request, res: Response) => {
     if (req.body.tags) {
       await postModel.updateOne(
         {
-          _id: postId,
+          slug,
         },
         {
           title: req.body.title,
@@ -34,7 +34,7 @@ const updatePost = async (req: Request, res: Response) => {
     } else {
       await postModel.updateOne(
         {
-          _id: postId,
+          slug,
         },
         {
           title: req.body.title,

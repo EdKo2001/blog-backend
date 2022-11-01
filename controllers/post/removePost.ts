@@ -7,8 +7,8 @@ import ROLES from "../../constants/ROLES";
 
 const removePost = async (req: Request, res: Response) => {
   try {
-    const postId = req.params.id;
-    const post = await postModel.findById(postId);
+    const slug = req.params.slug;
+    const post = await postModel.findOne({ slug });
 
     if (
       post?.user.toString() !== req.user.id &&
@@ -21,7 +21,7 @@ const removePost = async (req: Request, res: Response) => {
 
     postModel.findOneAndDelete(
       {
-        _id: postId,
+        slug,
       },
       (error: MongooseError, doc: ExtractMongooseArray<any>) => {
         if (error) {

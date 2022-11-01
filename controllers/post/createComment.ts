@@ -30,8 +30,8 @@ const createComment = async (req: Request, res: Response) => {
     }
 
     postModel
-      .findByIdAndUpdate(
-        req.params.postId,
+      .findOneAndUpdate(
+        { slug: req.params.slug },
         { $push: { comments: comment } },
         { new: true }
       )

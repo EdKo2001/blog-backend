@@ -4,6 +4,7 @@ import POST_STATUSES from "../constants/POST_STATUSES";
 
 export interface IPost extends Document {
   title: string;
+  slug:string;
   text: string;
   status: POST_STATUSES;
   tags: string[];
@@ -16,6 +17,10 @@ export interface IPost extends Document {
 const PostSchema = new Schema(
   {
     title: {
+      type: String,
+      required: true,
+    },
+    slug: {
       type: String,
       required: true,
     },

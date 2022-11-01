@@ -9,8 +9,8 @@ const deleteLike = async (req: Request, res: Response) => {
     };
 
     postModel
-      .findByIdAndUpdate(
-        req.params.postId,
+      .findOneAndUpdate(
+        { slug: req.params.slug },
         { $pull: { likes: like } },
         { new: true }
       )
