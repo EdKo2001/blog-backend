@@ -1,5 +1,5 @@
 High Priority
-FIX: check the returned data
+FEAT: my account
 FEAT: SEARCH for the whole website
 FEAT: SEARCH for the admin
 

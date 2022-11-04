@@ -12,7 +12,7 @@ const createLike = async (req: Request, res: Response) => {
     postModel
       .findOneAndUpdate(
         { slug: req.params.slug },
-        { $push: { likes: like } },
+        { $push: { likes: like }, $inc: { likesCount: 1 } },
         { new: true }
       )
       .exec((err, doc) => {

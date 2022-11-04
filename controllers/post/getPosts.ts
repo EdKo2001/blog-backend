@@ -21,8 +21,9 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
+        .select("-comments -likes")
         .sort({ viewsCount: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else if (req.query.hasOwnProperty("tag")) {
       if (req.query.tag === "") {
@@ -33,8 +34,9 @@ const getPosts = async (req: Request, res: Response) => {
           status: { $ne: POST_STATUSES.DRAFTED },
           tags: { $in: req.query.tag },
         })
+        .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else if (req.query.hasOwnProperty("relevant")) {
       if (req.query.relevant !== "") {
@@ -42,8 +44,9 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
+        .select("-comments -likes")
         .sort({ likes: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else if (req.query.hasOwnProperty("userId")) {
       if (req.query.userId === "") {
@@ -51,8 +54,9 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find({ user: { $eq: req.query.userId } })
+        .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else if (req.query.hasOwnProperty("own")) {
       const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
@@ -68,8 +72,9 @@ const getPosts = async (req: Request, res: Response) => {
 
       posts = await postModel
         .find({ user: decoded._id })
+        .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else if (req.query.hasOwnProperty("favorites")) {
       const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
@@ -85,8 +90,9 @@ const getPosts = async (req: Request, res: Response) => {
 
       posts = await postModel
         .find({ likes: { $elemMatch: { user: decoded._id } } })
+        .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else if (req.query.hasOwnProperty("all")) {
       if (req.query.all !== "") {
@@ -94,14 +100,16 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find()
+        .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     } else {
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
+        .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user")
+        .populate("user", "fullName _id")
         .exec();
     }
 

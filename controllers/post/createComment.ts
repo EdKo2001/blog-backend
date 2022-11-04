@@ -32,7 +32,7 @@ const createComment = async (req: Request, res: Response) => {
     postModel
       .findOneAndUpdate(
         { slug: req.params.slug },
-        { $push: { comments: comment } },
+        { $push: { comments: comment }, $inc: { commentsCount: 1 } },
         { new: true }
       )
       .populate("comments.user", "fullName avatarUrl")

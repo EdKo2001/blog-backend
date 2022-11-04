@@ -11,7 +11,7 @@ const deleteLike = async (req: Request, res: Response) => {
     postModel
       .findOneAndUpdate(
         { slug: req.params.slug },
-        { $pull: { likes: like } },
+        { $pull: { likes: like }, $inc: { likesCount: -1 } },
         { new: true }
       )
       .exec((err, doc) => {
