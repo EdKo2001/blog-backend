@@ -36,7 +36,7 @@ const login = async (req: Request, res: Response) => {
       }
     );
 
-    const { passwordHash, email, role, _id, ...userData } = user._doc;
+    const { passwordHash, email, _id, ...userData } = user._doc;
 
     res.json({
       ...userData,

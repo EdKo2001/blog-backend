@@ -11,10 +11,14 @@ const handleValidationErrors = (
       [param]: msg,
     };
   };
-  const errors = validationResult(req).formatWith(errorFormatter);
-  if (!errors.isEmpty()) {
-    req.error = { message: JSON.stringify(errors.array()) };
-    return res.status(400).json({ errors: errors.array() });
+  const errors = validationResult(req).formatWith(errorFormatter).array();
+  if (errors.length > 0) {
+    req.error = { message: JSON.stringify(errors) };
+    let errorsObj = {};
+    for (let i = 0; i < errors.length; i++) {
+      Object.assign(errorsObj, errors[i]);
+    }
+    return res.status(400).json({ errors: errorsObj });
   }
 
   next();

@@ -1,14 +1,13 @@
 High Priority
 FEAT: my account
+FEAT: Optimization
+---------------------------------------
+Medium Priority
 FEAT: SEARCH for the whole website
 FEAT: SEARCH for the admin
-
-
-Medium Priority
+---------------------------------------
+Low Priority
 To Do Tests
 https://blog.logrocket.com/how-to-write-end-to-end-tests-cypress-nodejs/
 https://medium.com/@natnael.awel/how-to-setup-testing-for-typescript-with-express-js-example-83d3efbb6fd4
-
-
-Low Priority
 

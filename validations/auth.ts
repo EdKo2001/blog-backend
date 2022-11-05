@@ -12,6 +12,6 @@ export const registerValidation = [
   body("password", "Password must be at least 5 characters").isLength({
     min: 5,
   }),
-  body("fullName", "Enter a name").isLength({ min: 3 }),
+  body("fullName", "Name must be at least 3 characters").isLength({ min: 3 }),
   body("avatarUrl", "Invalid avatar link").optional().isURL(),
 ];
