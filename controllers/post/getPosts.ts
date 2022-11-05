@@ -5,13 +5,9 @@ import { postModel } from "../../models";
 
 import { paginate } from "../../utils";
 
-import { paginateValidate } from "../../validations";
-
 import POST_STATUSES from "../../constants/POST_STATUSES";
 
 const getPosts = async (req: Request, res: Response) => {
-  paginateValidate();
-
   try {
     let posts;
 

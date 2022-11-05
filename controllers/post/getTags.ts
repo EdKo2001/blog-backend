@@ -5,11 +5,7 @@ import { postModel } from "../../models";
 
 import { mostFreqStr, paginate } from "../../utils";
 
-import { paginateValidate } from "../../validations";
-
 const getTags = async (req: Request, res: Response) => {
-  paginateValidate();
-
   try {
     const posts = await postModel.find();
 

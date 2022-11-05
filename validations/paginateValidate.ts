@@ -6,6 +6,7 @@ const paginateValidate = () => {
       isNaN(req.query.page as number & string) ||
       isNaN(req.query.limit as number & string)
     ) {
+      console.log("213");
       return res.status(400).json({
         message: "Page and Limit properties are required",
       });
