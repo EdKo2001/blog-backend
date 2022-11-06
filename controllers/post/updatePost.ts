@@ -49,7 +49,7 @@ const updatePost = async (req: Request, res: Response) => {
       success: true,
     });
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to update article",

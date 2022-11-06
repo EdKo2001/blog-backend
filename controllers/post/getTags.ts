@@ -13,7 +13,7 @@ const getTags = async (req: Request, res: Response) => {
 
     res.json(paginate(tags, req.query.page, req.query.limit));
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to get tags",

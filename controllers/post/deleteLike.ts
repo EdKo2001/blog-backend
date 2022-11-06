@@ -25,7 +25,7 @@ const deleteLike = async (req: Request, res: Response) => {
         res.json(doc);
       });
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to delete like",

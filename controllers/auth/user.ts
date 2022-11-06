@@ -17,7 +17,7 @@ const user = async (req: Request, res: Response) => {
     res.json(userData);
   } catch (error) {
     console.log(error);
-    req.error = error;
+    req.error = { message: error };
     res.status(503).json({
       message: "Internal Server Error",
     });

@@ -25,7 +25,7 @@ const removePost = async (req: Request, res: Response) => {
       },
       (error: MongooseError, doc: ExtractMongooseArray<any>) => {
         if (error) {
-          req.error = error;
+          req.error = { message: error };
           return res.status(500).json({
             message: "Failed to delete article",
           });
@@ -43,7 +43,7 @@ const removePost = async (req: Request, res: Response) => {
       }
     );
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to retrieve articles",

@@ -111,7 +111,7 @@ const getPosts = async (req: Request, res: Response) => {
 
     res.json(paginate(posts, req.query.page, req.query.limit));
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to retrieve articles",

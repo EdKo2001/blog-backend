@@ -62,7 +62,7 @@ app.get("/error", (req: Request, res: Response) => {
     a = 2;
     res.json({ a: a });
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     res.status(500).json("internal server error");
   }
 });

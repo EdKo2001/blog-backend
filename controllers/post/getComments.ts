@@ -16,7 +16,7 @@ const getComments = async (req: Request, res: Response) => {
 
     res.json(foundComments.comments);
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to get comments",

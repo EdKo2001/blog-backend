@@ -26,7 +26,7 @@ const register = async (req: Request, res: Response) => {
     });
 
     const user = await doc.save().catch((error: MongooseError) => {
-      req.error = error;
+      req.error = { message: error };
       res.json(error);
     });
 
@@ -49,7 +49,7 @@ const register = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
-    req.error = error;
+    req.error = { message: error };
     res.status(503).json({
       message: "Failed to register",
     });

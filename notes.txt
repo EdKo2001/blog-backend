@@ -1,6 +1,6 @@
 High Priority
 FEAT: my account
-FEAT: Optimization
+FEAT: Swagger
 ---------------------------------------
 Medium Priority
 FEAT: SEARCH for the whole website

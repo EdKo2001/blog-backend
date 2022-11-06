@@ -37,7 +37,7 @@ const getPost = async (req: Request, res: Response) => {
       .select("-comments -likes")
       .populate("user", "fullName _id");
   } catch (error) {
-    req.error = error;
+    req.error = { message: error };
     console.log(error);
     res.status(503).json({
       message: "Failed to retrieve articles",

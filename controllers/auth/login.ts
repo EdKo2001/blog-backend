@@ -36,7 +36,7 @@ const login = async (req: Request, res: Response) => {
       }
     );
 
-    const { passwordHash, email, _id, ...userData } = user._doc;
+    const { passwordHash, ...userData } = user._doc;
 
     res.json({
       ...userData,
@@ -44,7 +44,7 @@ const login = async (req: Request, res: Response) => {
     });
   } catch (error) {
     console.log(error);
-    req.error = error;
+    req.error = { message: error };
     res.status(503).json({
       message: "Failed to login",
     });
