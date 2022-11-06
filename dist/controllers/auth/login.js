@@ -42,15 +42,16 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
         const token = jsonwebtoken_1.default.sign({
             _id: user._id,
+            role: user.role,
         }, process.env.JWT, {
-            expiresIn: "30d",
+            expiresIn: "24h",
         });
-        const { passwordHash } = user, userData = __rest(user, ["passwordHash"]);
+        const _a = user._doc, { passwordHash } = _a, userData = __rest(_a, ["passwordHash"]);
         res.json(Object.assign(Object.assign({}, userData), { token }));
     }
     catch (error) {
         console.log(error);
-        req.error = error;
+        req.error = { message: error };
         res.status(503).json({
             message: "Failed to login",
         });

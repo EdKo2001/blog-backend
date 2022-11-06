@@ -35,12 +35,9 @@ app.use((0, cors_1.default)());
 app.use((0, compression_1.default)());
 app.use(utils_1.errorLogger);
 app.use(utils_1.accessLogger);
-app.get("/", (req, res) => {
-    res.status(200).json("Home page");
-});
 app.use("/api/auth", api_1.authRoutes);
 app.use("/api/posts", api_1.postRoutes);
-app.post("/upload", utils_1.checkAuth, upload.single("image"), (req, res) => {
+app.post("/api/upload", utils_1.checkAuth, upload.single("image"), (req, res) => {
     var _a;
     res.json({
         url: `/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.originalname}`,
@@ -58,7 +55,7 @@ app.get("/error", (req, res) => {
         res.json({ a: a });
     }
     catch (error) {
-        req.error = error;
+        req.error = { message: error };
         res.status(500).json("internal server error");
     }
 });
@@ -69,6 +66,6 @@ app.use((req, res) => {
 });
 const PORT = parseInt(process.env.PORT || "") || 8888;
 app.listen(PORT, () => {
-    console.log("Server listening on http://localhost:" + PORT);
+    console.log("Server is running on http://localhost:" + PORT);
 });
 exports.default = app;

@@ -12,19 +12,39 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const createPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        console.log(req.body.tags);
-        const doc = new models_1.postModel({
-            title: req.body.title,
-            text: req.body.text,
-            imageUrl: req.body.imageUrl,
-            tags: req.body.tags.split(","),
-            user: req.userId,
-        });
+        let doc;
+        if (req.body.tags) {
+            doc = new models_1.postModel({
+                title: req.body.title,
+                slug: req.body.title
+                    .toLowerCase()
+                    .replace(/ /g, "-")
+                    .replace(/[^\w-]+/g, ""),
+                text: req.body.text,
+                status: req.body.status,
+                imageUrl: req.body.imageUrl,
+                tags: req.body.tags.split(","),
+                user: req.user.id,
+            });
+        }
+        else {
+            doc = new models_1.postModel({
+                title: req.body.title,
+                slug: req.body.title
+                    .toLowerCase()
+                    .replace(/ /g, "-")
+                    .replace(/[^\w-]+/g, ""),
+                text: req.body.text,
+                status: req.body.status,
+                imageUrl: req.body.imageUrl,
+                user: req.user.id,
+            });
+        }
         const post = yield doc.save();
         res.json(post);
     }
     catch (error) {
-        req.error = error;
+        req.error = { message: error };
         console.log(error);
         res.status(503).json({
             message: "Failed to create article",

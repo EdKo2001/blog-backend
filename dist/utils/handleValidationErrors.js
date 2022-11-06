@@ -7,10 +7,14 @@ const handleValidationErrors = (req, res, next) => {
             [param]: msg,
         };
     };
-    const errors = (0, express_validator_1.validationResult)(req).formatWith(errorFormatter);
-    if (!errors.isEmpty()) {
-        req.error = { message: JSON.stringify(errors.array()) };
-        return res.status(400).json({ errors: errors.array() });
+    const errors = (0, express_validator_1.validationResult)(req).formatWith(errorFormatter).array();
+    if (errors.length > 0) {
+        let errorsObj = {};
+        for (let i = 0; i < errors.length; i++) {
+            Object.assign(errorsObj, errors[i]);
+        }
+        req.error = { message: JSON.stringify(errorsObj) };
+        return res.status(400).json({ errors: errorsObj });
     }
     next();
 };

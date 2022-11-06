@@ -9,7 +9,9 @@ const checkAuth = (req, res, next) => {
     if (token) {
         try {
             const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT);
-            req.userId = decoded._id;
+            req.user = {};
+            req.user.id = decoded._id;
+            req.user.role = decoded.role;
             next();
         }
         catch (e) {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ExtractMongooseArray, MongooseError } from "mongoose";
+import { ExtractMongooseArray } from "mongoose";
 
 import { postModel } from "../../models";
 
@@ -23,7 +23,7 @@ const removePost = async (req: Request, res: Response) => {
       {
         slug,
       },
-      (error: MongooseError, doc: ExtractMongooseArray<any>) => {
+      (error: Error, doc: ExtractMongooseArray<any>) => {
         if (error) {
           req.error = { message: error };
           return res.status(500).json({

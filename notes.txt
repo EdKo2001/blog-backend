@@ -1,10 +1,9 @@
 High Priority
-FEAT: my account
+FEAT: SEARCH for the whole website
+FEAT: SEARCH for the admin
 FEAT: Swagger
 ---------------------------------------
 Medium Priority
-FEAT: SEARCH for the whole website
-FEAT: SEARCH for the admin
 ---------------------------------------
 Low Priority
 To Do Tests

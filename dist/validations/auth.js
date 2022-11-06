@@ -13,6 +13,6 @@ exports.registerValidation = [
     (0, express_validator_1.body)("password", "Password must be at least 5 characters").isLength({
         min: 5,
     }),
-    (0, express_validator_1.body)("fullName", "Enter a name").isLength({ min: 3 }),
+    (0, express_validator_1.body)("fullName", "Name must be at least 3 characters").isLength({ min: 3 }),
     (0, express_validator_1.body)("avatarUrl", "Invalid avatar link").optional().isURL(),
 ];

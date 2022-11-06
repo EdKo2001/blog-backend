@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-import { MongooseError } from "mongoose";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -25,7 +24,7 @@ const register = async (req: Request, res: Response) => {
       passwordHash: hash,
     });
 
-    const user = await doc.save().catch((error: MongooseError) => {
+    const user = await doc.save().catch((error: Error) => {
       req.error = { message: error };
       res.json(error);
     });

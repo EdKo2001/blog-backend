@@ -1,5 +1,6 @@
 declare namespace Express {
   import { Schema } from "mongoose";
+
   import ROLES from "../constants/ROLES";
 
   interface Request {
@@ -9,7 +10,7 @@ declare namespace Express {
     };
     error: {
       name?: string;
-      message: string;
+      message: string | Error;
       stack?: string;
     };
   }

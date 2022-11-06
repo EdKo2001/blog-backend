@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
+const ROLES_1 = __importDefault(require("../constants/ROLES"));
 const UserSchema = new mongoose_1.Schema({
     fullName: {
         type: String,
@@ -14,6 +18,11 @@ const UserSchema = new mongoose_1.Schema({
     passwordHash: {
         type: String,
         required: true,
+    },
+    role: {
+        type: String,
+        enum: ROLES_1.default,
+        default: ROLES_1.default.USER,
     },
     avatarUrl: String,
 }, {

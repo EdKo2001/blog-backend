@@ -12,10 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const postId = req.params.id;
+        const slug = req.params.slug;
         models_1.postModel
             .findOneAndUpdate({
-            _id: postId,
+            slug,
         }, {
             $inc: { viewsCount: 1 },
         }, {
@@ -34,10 +34,11 @@ const getPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             }
             res.json(doc);
         })
-            .populate("user");
+            .select("-comments -likes")
+            .populate("user", "fullName _id");
     }
     catch (error) {
-        req.error = error;
+        req.error = { message: error };
         console.log(error);
         res.status(503).json({
             message: "Failed to retrieve articles",

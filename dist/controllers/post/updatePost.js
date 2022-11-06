@@ -8,26 +8,49 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
+const ROLES_1 = __importDefault(require("../../constants/ROLES"));
 const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const postId = req.params.id;
-        yield models_1.postModel.updateOne({
-            _id: postId,
-        }, {
-            title: req.body.title,
-            text: req.body.text,
-            imageUrl: req.body.imageUrl,
-            user: req.userId,
-            tags: req.body.tags.split(","),
-        });
-        res.json({
+        const slug = req.params.slug;
+        const post = yield models_1.postModel.findOne({ slug });
+        if ((post === null || post === void 0 ? void 0 : post.user.toString()) !== req.user.id &&
+            req.user.role !== ROLES_1.default.ADMIN) {
+            return res.status(403).json({
+                message: "Forbidden",
+            });
+        }
+        if (req.body.tags) {
+            yield models_1.postModel.updateOne({
+                slug,
+            }, {
+                title: req.body.title,
+                text: req.body.text,
+                imageUrl: req.body.imageUrl,
+                status: req.body.status,
+                tags: req.body.tags.split(","),
+            });
+        }
+        else {
+            yield models_1.postModel.updateOne({
+                slug,
+            }, {
+                title: req.body.title,
+                text: req.body.text,
+                imageUrl: req.body.imageUrl,
+                status: req.body.status,
+            });
+        }
+        res.status(204).json({
             success: true,
         });
     }
     catch (error) {
-        req.error = error;
+        req.error = { message: error };
         console.log(error);
         res.status(503).json({
             message: "Failed to update article",

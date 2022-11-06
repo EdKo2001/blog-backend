@@ -23,7 +23,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const user = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const user = yield models_1.userModel.findById(req.userId);
+        const user = yield models_1.userModel.findById(req.user.id);
         if (!user) {
             return res.status(404).json({
                 message: "User is not found",
@@ -34,7 +34,7 @@ const user = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         console.log(error);
-        req.error = error;
+        req.error = { message: error };
         res.status(503).json({
             message: "Internal Server Error",
         });

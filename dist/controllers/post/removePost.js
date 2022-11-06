@@ -8,17 +8,27 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
+const ROLES_1 = __importDefault(require("../../constants/ROLES"));
 const removePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const postId = req.params.id;
+        const slug = req.params.slug;
+        const post = yield models_1.postModel.findOne({ slug });
+        if ((post === null || post === void 0 ? void 0 : post.user.toString()) !== req.user.id &&
+            req.user.role !== ROLES_1.default.ADMIN) {
+            return res.status(403).json({
+                message: "Forbidden",
+            });
+        }
         models_1.postModel.findOneAndDelete({
-            _id: postId,
+            slug,
         }, (error, doc) => {
-            typeof doc;
             if (error) {
-                req.error = error;
+                req.error = { message: error };
                 return res.status(500).json({
                     message: "Failed to delete article",
                 });
@@ -28,13 +38,13 @@ const removePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
                     message: "Article not found",
                 });
             }
-            res.json({
+            res.status(204).json({
                 success: true,
             });
         });
     }
     catch (error) {
-        req.error = error;
+        req.error = { message: error };
         console.log(error);
         res.status(503).json({
             message: "Failed to retrieve articles",
