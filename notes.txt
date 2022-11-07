@@ -1,6 +1,4 @@
 High Priority
-FEAT: SEARCH for the whole website
-FEAT: SEARCH for the admin
 FEAT: Swagger
 ---------------------------------------
 Medium Priority

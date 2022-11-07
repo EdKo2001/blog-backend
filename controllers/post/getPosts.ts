@@ -90,22 +90,35 @@ const getPosts = async (req: Request, res: Response) => {
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id")
         .exec();
+    } else if (req.query.hasOwnProperty("search")) {
+      if (req.query.search === "") {
+        return res.status(400).json({ error: "search mustn't be empty" });
+      }
+      const all = req.query.hasOwnProperty("all");
+      posts = all
+        ? await postModel
+            .find({
+              title: { $regex: req.query.search },
+            })
+            .select("-comments -likes")
+            .sort({ createdAt: -1 })
+            .populate("user", "fullName _id")
+            .exec()
+        : await postModel
+            .find({
+              status: { $ne: POST_STATUSES.DRAFTED },
+              title: { $regex: req.query.search },
+            })
+            .select("-comments -likes")
+            .sort({ createdAt: -1 })
+            .populate("user", "fullName _id")
+            .exec();
     } else if (req.query.hasOwnProperty("all")) {
       if (req.query.all !== "") {
         return res.status(400).json({ error: "all must be empty" });
       }
       posts = await postModel
         .find()
-        .select("-comments -likes")
-        .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
-        .exec();
-    } else if (req.query.hasOwnProperty("search")) {
-      if (req.query.search === "") {
-        return res.status(400).json({ error: "search mustn't be empty" });
-      }
-      posts = await postModel
-        .find({ title: { $regex: req.query.search } })
         .select("-comments -likes")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id")
