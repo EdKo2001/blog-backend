@@ -55,6 +55,7 @@ router.put(
   checkAuth, // postCreateValidation,
   postController.createLike
 );
+
 router.put(
   "/:slug/unlike",
   checkAuth, // postCreateValidation,

@@ -20,7 +20,7 @@ const getLikes = async (req: Request, res: Response) => {
     res.json(foundLikes.likes);
   } catch (err) {
     console.log(err);
-    req.error = err;
+    req.error = { message: err };
     res.status(503).json({
       message: "Failed to get likes",
     });

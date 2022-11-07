@@ -100,6 +100,16 @@ const getPosts = async (req: Request, res: Response) => {
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id")
         .exec();
+    } else if (req.query.hasOwnProperty("search")) {
+      if (req.query.search === "") {
+        return res.status(400).json({ error: "search mustn't be empty" });
+      }
+      posts = await postModel
+        .find({ title: { $regex: req.query.search } })
+        .select("-comments -likes")
+        .sort({ createdAt: -1 })
+        .populate("user", "fullName _id")
+        .exec();
     } else {
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
