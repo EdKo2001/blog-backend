@@ -98,7 +98,7 @@ const getPosts = async (req: Request, res: Response) => {
       posts = all
         ? await postModel
             .find({
-              title: { $regex: req.query.search },
+              title: { $regex: req.query.search, $options: "i" },
             })
             .select("-comments -likes")
             .sort({ createdAt: -1 })
@@ -107,7 +107,7 @@ const getPosts = async (req: Request, res: Response) => {
         : await postModel
             .find({
               status: { $ne: POST_STATUSES.DRAFTED },
-              title: { $regex: req.query.search },
+              title: { $regex: req.query.search, $options: "i" },
             })
             .select("-comments -likes")
             .sort({ createdAt: -1 })
