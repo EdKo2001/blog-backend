@@ -9,17 +9,21 @@ import Post from "../models/Post";
 // sudo apt -y install ./google-chrome-stable_current_amd64.deb
 // To access Heroku app bash by CLI:
 // heroku ps:exec --app=mern-blog-backend-part
+// https://github.com/jontewks/puppeteer-heroku-buildpack
 
 const postsScraper = async (limit = 3) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
   const browser = await puppeteer.launch(
     process.env.ENV === "development"
       ? process.platform === "win32"
-        ? {}
-        : {
+        ? // dev + win
+          {}
+        : // dev + other linux based systems
+          {
             executablePath: "/usr/bin/google-chrome",
           }
-      : { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
+      : // prod
+        { args: ["--no-sandbox"] }
   );
   const page = await browser.newPage();
 
