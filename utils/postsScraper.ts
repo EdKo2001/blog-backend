@@ -71,10 +71,9 @@ const postsScraper = async (limit = 3) => {
             slug: title?.replace(/ /g, "-").replace(/[^\w-]+/g, ""),
             text: text,
             excerpt: text?.slice(0, 240) + " ...",
-            imageUrl: imageSelector?.replace(
-              "https://www.freecodecamp.org/news/content/images/size/w2000/2022/11",
-              "/uploads"
-            ),
+            imageUrl:
+              "/uploads/" +
+              imageSelector.split("/")[imageSelector.split("/").length - 1],
             user: ADMIN_ID,
             tags: queryPost
               ?.querySelector(".post-full-meta > a")
@@ -95,10 +94,7 @@ const postsScraper = async (limit = 3) => {
 
     fs.writeFile(
       "./uploads/" +
-        imageSelector?.replace(
-          "https://www.freecodecamp.org/news/content/images/size/w2000/2022/11",
-          ""
-        ),
+        imageSelector.split("/")[imageSelector.split("/").length - 1],
       await image!.buffer(),
       function (err) {
         if (err) {
