@@ -1,4 +1,5 @@
 import puppeteer from "puppeteer";
+import fs from "fs";
 
 import Post from "../models/Post";
 
@@ -11,8 +12,10 @@ import Post from "../models/Post";
 // heroku ps:exec --app=mern-blog-backend-part
 // https://github.com/jontewks/puppeteer-heroku-buildpack
 
-const postsScraper = async (limit = 3) => {
+const postsScraper = async (limit = 1) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
+  const BACKEND_URL = process.env.BACKEND_URL as string;
+
   const browser = await puppeteer.launch(
     process.env.ENV === "development"
       ? process.platform === "win32"
@@ -25,6 +28,7 @@ const postsScraper = async (limit = 3) => {
       : // prod
         { args: ["--no-sandbox"] }
   );
+
   const page = await browser.newPage();
 
   await page.goto("https://www.freecodecamp.org/news/");
@@ -45,33 +49,65 @@ const postsScraper = async (limit = 3) => {
   const posts: any[] = [];
 
   for (const link of links) {
+    let imageSelector = "";
+
     await page.goto(`https://www.freecodecamp.org${link}`);
 
-    const post = await page.evaluate((ADMIN_ID) => {
-      const queryPost = document.querySelector("article.post-full.post");
+    const post = await page.evaluate(
+      (ADMIN_ID, BACKEND_URL, imageSelector) => {
+        const queryPost = document.querySelector("article.post-full.post");
 
-      const title = queryPost?.querySelector("h1")?.innerHTML.trim();
-      const text = queryPost
-        ?.querySelector(".post-full-content .post-content")
-        ?.innerHTML.trim();
+        const title = queryPost?.querySelector("h1")?.innerHTML.trim();
+        const text = queryPost
+          ?.querySelector(".post-full-content .post-content")
+          ?.innerHTML.trim();
 
-      return {
-        title,
-        slug: title?.replace(/ /g, "-").replace(/[^\w-]+/g, ""),
-        text: text,
-        excerpt: text?.slice(0, 240) + " ...",
-        imageUrl: queryPost
+        imageSelector = queryPost
           ?.querySelector(".post-full-image img")
-          ?.getAttribute("src"),
-        user: ADMIN_ID,
-        tags: queryPost
-          ?.querySelector(".post-full-meta > a")
-          ?.innerHTML.trim()
-          .replace("#", ""),
-      };
-    }, ADMIN_ID);
+          ?.getAttribute("src") as string;
 
-    posts.push(post);
+        return {
+          post: {
+            title,
+            slug: title?.replace(/ /g, "-").replace(/[^\w-]+/g, ""),
+            text: text,
+            excerpt: text?.slice(0, 240) + " ...",
+            imageUrl: imageSelector?.replace(
+              "https://www.freecodecamp.org/news/content/images/size/w2000/2022/11",
+              "/uploads"
+            ),
+            user: ADMIN_ID,
+            tags: queryPost
+              ?.querySelector(".post-full-meta > a")
+              ?.innerHTML.trim()
+              .replace("#", ""),
+          },
+          imageSelector,
+        };
+      },
+      ADMIN_ID,
+      BACKEND_URL,
+      imageSelector
+    );
+
+    posts.push(post.post);
+    imageSelector = post.imageSelector;
+
+    const image = await page.goto(imageSelector);
+
+    fs.writeFile(
+      "./uploads/" +
+        imageSelector?.replace(
+          "https://www.freecodecamp.org/news/content/images/size/w2000/2022/11",
+          ""
+        ),
+      await image!.buffer(),
+      function (err) {
+        if (err) {
+          return console.log(err);
+        }
+      }
+    );
   }
 
   await browser.close();
