@@ -12,6 +12,7 @@ const createPost = async (req, res) => {
                     .replace(/ /g, "-")
                     .replace(/[^\w-]+/g, ""),
                 text: req.body.text,
+                excerpt: req.body.text.slice(0, 240) + " ...",
                 status: req.body.status,
                 imageUrl: req.body.imageUrl,
                 tags: req.body.tags.split(","),
@@ -26,6 +27,7 @@ const createPost = async (req, res) => {
                     .replace(/ /g, "-")
                     .replace(/[^\w-]+/g, ""),
                 text: req.body.text,
+                excerpt: req.body.text.slice(0, 240) + " ...",
                 status: req.body.status,
                 imageUrl: req.body.imageUrl,
                 user: req.user.id,

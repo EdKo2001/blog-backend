@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+
 import connectDB from "./mongoDB.js";
 
 import User from "../models/User.js";
@@ -11,53 +12,27 @@ connectDB();
 
 // Users Seeder
 const importUsers = async () => {
-  let newUsers = [...users];
-  console.log(newUsers);
-  console.log(users);
+  let copiedUsers = [...users];
 
   try {
-    // await User.deleteMany({
-    //   $match: {
-    //     _id: {
-    //       $in: [users.map((user) => user._id)],
-    //     },
-    //   },
-    // });
-    // await User.find({
-    //   $or: [
-    //     {
-    //       _id: users.map((user) => user._id),
-    //     },
-    //     {
-    //       email: users.map((user) => user.email),
-    //     },
-    //   ],
-    // }).then((dbUsers) => {
-    //   dbUsers.forEach(
-    //     (dbUser: any) =>
-    //       (newUsers = users.filter(
-    //         (user) => dbUser._id !== user._id && dbUser.email !== user.email
-    //       ))
-    //   );
-    // });
+    for (let i = 0; i < copiedUsers.length; i++) {
+      const email = copiedUsers[i].email;
 
-    // for (let i = 0; i < posts.length; i++) {
-    //   const title = posts[i].title;
-    //   const text = posts[i].text;
+      // check if that unique field already exists in the collection
+      await User.exists({ email }).then((exists) => {
+        if (exists) {
+          const userIndex = users.findIndex((user) => user.email === email);
 
-    //   // check if that unique field already exists in the collection
-    //   await Post.exists({ $or: [{ title }, { text }] }).then((exists) => {
-    //     if (exists) {
-    //       posts.splice(i, 1);
-    //     }
-    //   });
-    // }
+          users.splice(userIndex, 1);
+        }
+      });
+    }
 
-    // await User.insertMany(newUsers).then((res) =>
-    //   res.length > 0
-    //     ? console.log("Users Imported")
-    //     : console.log("Users Up-To-Date")
-    // );
+    await User.insertMany(users).then((res) =>
+      res.length > 0
+        ? console.log("Users Imported")
+        : console.log("Users Up-To-Date")
+    );
 
     process.exit();
   } catch (error) {
@@ -65,6 +40,7 @@ const importUsers = async () => {
     process.exit(1);
   }
 };
+
 // Users Seeder
 const deleteUsers = async () => {
   try {

@@ -14,6 +14,7 @@ const mongoDB_1 = __importDefault(require("./config/mongoDB"));
 const swagger_json_1 = __importDefault(require("./swagger.json"));
 const api_1 = require("./routes/api");
 const utils_1 = require("./utils");
+const ROLES_1 = __importDefault(require("./constants/ROLES"));
 const app = (0, express_1.default)();
 dotenv_1.default.config();
 (0, mongoDB_1.default)();
@@ -43,10 +44,10 @@ app.post("/api/upload", utils_1.checkAuth, upload.single("image"), (req, res) =>
         url: `/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.originalname}`,
     });
 });
-app.post("/api/scrape/posts", async (req, res) => {
+app.post("/api/scrape/posts", utils_1.checkAuth, (0, utils_1.authRole)([ROLES_1.default.ADMIN]), async (req, res) => {
     try {
-        await (0, utils_1.postsScraper)(req.query.limit);
-        return res.status(201).json("Success");
+        const posts = await (0, utils_1.postsScraper)(req.query.limit);
+        return res.status(201).json(posts);
     }
     catch (err) {
         console.log(err);
