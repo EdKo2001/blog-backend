@@ -43,6 +43,17 @@ app.post("/api/upload", utils_1.checkAuth, upload.single("image"), (req, res) =>
         url: `/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.originalname}`,
     });
 });
+app.post("/api/scrape/posts", async (req, res) => {
+    try {
+        await (0, utils_1.postsScraper)(req.query.limit);
+        return res.status(201).json("Success");
+    }
+    catch (err) {
+        console.log(err);
+        req.error = { message: err };
+        return res.status(500).json(err);
+    }
+});
 const options = {
     customCss: ".swagger-ui .topbar { display: none }",
     customSiteTitle: "Blog Api Documentation",

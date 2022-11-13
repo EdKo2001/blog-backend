@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.authRole = exports.paginate = exports.mostFreqStr = exports.handleValidationErrors = exports.checkAuth = exports.accessLogger = exports.errorLogger = void 0;
+exports.postsScraper = exports.authRole = exports.paginate = exports.mostFreqStr = exports.handleValidationErrors = exports.checkAuth = exports.accessLogger = exports.errorLogger = void 0;
 var logger_1 = require("./logger");
 Object.defineProperty(exports, "errorLogger", { enumerable: true, get: function () { return logger_1.errorLogger; } });
 Object.defineProperty(exports, "accessLogger", { enumerable: true, get: function () { return logger_1.accessLogger; } });
@@ -17,3 +17,5 @@ var paginate_1 = require("./paginate");
 Object.defineProperty(exports, "paginate", { enumerable: true, get: function () { return __importDefault(paginate_1).default; } });
 var authRole_1 = require("./authRole");
 Object.defineProperty(exports, "authRole", { enumerable: true, get: function () { return __importDefault(authRole_1).default; } });
+var postsScraper_1 = require("./postsScraper");
+Object.defineProperty(exports, "postsScraper", { enumerable: true, get: function () { return __importDefault(postsScraper_1).default; } });

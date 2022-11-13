@@ -11,7 +11,15 @@ import swaggerDoc from "./swagger.json";
 
 import { authRoutes, postRoutes } from "./routes/api";
 
-import { errorLogger, accessLogger, checkAuth } from "./utils";
+import {
+  errorLogger,
+  accessLogger,
+  checkAuth,
+  postsScraper,
+  authRole,
+} from "./utils";
+
+import ROLES from "./constants/ROLES";
 // import swaggerSchemas from "./config/swaggerSchemas";
 
 const app: Express = express();
@@ -47,6 +55,23 @@ app.post("/api/upload", checkAuth, upload.single("image"), (req, res) => {
     url: `/uploads/${req.file?.originalname}`,
   });
 });
+
+app.post(
+  "/api/scrape/posts",
+  checkAuth,
+  authRole([ROLES.ADMIN]),
+  async (req, res) => {
+    try {
+      const posts = await postsScraper(req.query.limit as any);
+
+      return res.status(201).json(posts);
+    } catch (err) {
+      console.log(err);
+      req.error = { message: err };
+      return res.status(500).json(err);
+    }
+  }
+);
 
 const options = {
   customCss: ".swagger-ui .topbar { display: none }",

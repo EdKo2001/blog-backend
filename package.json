@@ -10,10 +10,8 @@
     "lint": "eslint . --fix",
     "test:jest": "jest --config ./jest.config.json",
     "test:jest-watch": "jest --config ./jest.config.json --watch",
-    "seeder": "node dist/config/seeder.js",
-    "seeder:delete": "node dist/config/seeder.js -d",
-    "dummy-data": "node dist/config/dummy-data-seeder.js",
-    "dummy-data:delete": "node dist/config/dummy-data-seeder.js -d"
+    "dummy-users": "node dist/config/dummy-users-seeder.js",
+    "dummy-users:delete": "node dist/config/dummy-users-seeder.js -d"
   },
   "author": "Eduard Koshkelyan",
   "license": "ISC",
@@ -32,7 +30,7 @@
     "mongoose-to-swagger": "^1.4.0",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "node-cache": "^5.1.2",
+    "puppeteer": "^19.2.2",
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {

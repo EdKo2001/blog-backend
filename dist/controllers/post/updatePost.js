@@ -1,23 +1,14 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const models_1 = require("../../models");
 const ROLES_1 = __importDefault(require("../../constants/ROLES"));
-const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const updatePost = async (req, res) => {
     try {
         const slug = req.params.slug;
-        const post = yield models_1.postModel.findOne({ slug });
+        const post = await models_1.postModel.findOne({ slug });
         if ((post === null || post === void 0 ? void 0 : post.user.toString()) !== req.user.id &&
             req.user.role !== ROLES_1.default.ADMIN) {
             return res.status(403).json({
@@ -25,7 +16,7 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         if (req.body.tags) {
-            yield models_1.postModel.updateOne({
+            await models_1.postModel.updateOne({
                 slug,
             }, {
                 title: req.body.title,
@@ -36,7 +27,7 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             });
         }
         else {
-            yield models_1.postModel.updateOne({
+            await models_1.postModel.updateOne({
                 slug,
             }, {
                 title: req.body.title,
@@ -56,5 +47,5 @@ const updatePost = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
             message: "Failed to update article",
         });
     }
-});
+};
 exports.default = updatePost;

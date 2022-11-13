@@ -24,9 +24,15 @@ const PostSchema = new Schema(
     },
     slug: {
       type: String,
+      lowercase: true,
       required: true,
     },
     text: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    excerpt: {
       type: String,
       required: true,
       unique: true,
