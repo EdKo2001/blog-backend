@@ -19,7 +19,7 @@ const postsScraper = async (limit = 3) => {
         : {
             executablePath: "/usr/bin/google-chrome",
           }
-      : {}
+      : { args: ["--no-sandbox", "--disable-setuid-sandbox"] }
   );
   const page = await browser.newPage();
 
