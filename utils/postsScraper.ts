@@ -7,6 +7,7 @@ const postsScraper = async (limit = 3) => {
   const browser = await puppeteer.launch({
     headless: false,
     args: ["--no-sandbox"],
+    ignoreDefaultArgs: ["--disable-extensions"],
   });
   const page = await browser.newPage();
   await page.goto("https://www.freecodecamp.org/news/");
