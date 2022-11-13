@@ -12,9 +12,8 @@ import Post from "../models/Post";
 // heroku ps:exec --app=mern-blog-backend-part
 // https://github.com/jontewks/puppeteer-heroku-buildpack
 
-const postsScraper = async (limit = 1) => {
+const postsScraper = async (limit = 10) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
-  const BACKEND_URL = process.env.BACKEND_URL as string;
 
   const browser = await puppeteer.launch(
     process.env.ENV === "development"
@@ -54,7 +53,7 @@ const postsScraper = async (limit = 1) => {
     await page.goto(`https://www.freecodecamp.org${link}`);
 
     const post = await page.evaluate(
-      (ADMIN_ID, BACKEND_URL, imageSelector) => {
+      (ADMIN_ID, imageSelector) => {
         const queryPost = document.querySelector("article.post-full.post");
 
         const title = queryPost?.querySelector("h1")?.innerHTML.trim();
@@ -86,7 +85,6 @@ const postsScraper = async (limit = 1) => {
         };
       },
       ADMIN_ID,
-      BACKEND_URL,
       imageSelector
     );
 
