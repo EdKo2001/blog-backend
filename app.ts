@@ -57,8 +57,8 @@ app.post("/api/upload", checkAuth, upload.single("image"), (req, res) => {
   });
 });
 
-// Will run every day at 12:00 AM
-cron.schedule("0 0 0 * * *", async () => {
+// Will run twice a week on Monday and Thurdsday at 12:00 AM
+cron.schedule("0 0 * * MON,THU", async () => {
   try {
     await postsScraper();
   } catch (err) {
