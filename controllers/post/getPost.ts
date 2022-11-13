@@ -35,7 +35,7 @@ const getPost = async (req: Request, res: Response) => {
         }
       )
       .select("-comments -likes")
-      .populate("user", "fullName _id");
+      .populate("user", "fullName _id avatarUrl");
   } catch (error) {
     req.error = { message: error };
     console.log(error);

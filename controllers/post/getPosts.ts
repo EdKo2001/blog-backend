@@ -19,7 +19,7 @@ const getPosts = async (req: Request, res: Response) => {
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
         .select("-comments -likes")
         .sort({ viewsCount: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else if (req.query.hasOwnProperty("tag")) {
       if (req.query.tag === "") {
@@ -32,7 +32,7 @@ const getPosts = async (req: Request, res: Response) => {
         })
         .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else if (req.query.hasOwnProperty("relevant")) {
       if (req.query.relevant !== "") {
@@ -42,7 +42,7 @@ const getPosts = async (req: Request, res: Response) => {
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
         .select("-comments -likes")
         .sort({ likes: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else if (req.query.hasOwnProperty("userId")) {
       if (req.query.userId === "") {
@@ -52,7 +52,7 @@ const getPosts = async (req: Request, res: Response) => {
         .find({ user: { $eq: req.query.userId } })
         .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else if (req.query.hasOwnProperty("own")) {
       const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
@@ -70,7 +70,7 @@ const getPosts = async (req: Request, res: Response) => {
         .find({ user: decoded._id })
         .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else if (req.query.hasOwnProperty("favorites")) {
       const token = (req.headers.authorization || "").replace(/Bearer\s?/, "");
@@ -88,7 +88,7 @@ const getPosts = async (req: Request, res: Response) => {
         .find({ likes: { $elemMatch: { user: decoded._id } } })
         .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else if (req.query.hasOwnProperty("search")) {
       if (req.query.search === "") {
@@ -102,7 +102,7 @@ const getPosts = async (req: Request, res: Response) => {
             })
             .select("-comments -likes")
             .sort({ createdAt: -1 })
-            .populate("user", "fullName _id")
+            .populate("user", "fullName _id avatarUrl")
             .exec()
         : await postModel
             .find({
@@ -111,7 +111,7 @@ const getPosts = async (req: Request, res: Response) => {
             })
             .select("-comments -likes")
             .sort({ createdAt: -1 })
-            .populate("user", "fullName _id")
+            .populate("user", "fullName _id avatarUrl")
             .exec();
     } else if (req.query.hasOwnProperty("all")) {
       if (req.query.all !== "") {
@@ -121,14 +121,14 @@ const getPosts = async (req: Request, res: Response) => {
         .find()
         .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     } else {
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
         .select("-comments -likes")
         .sort({ createdAt: -1 })
-        .populate("user", "fullName _id")
+        .populate("user", "fullName _id avatarUrl")
         .exec();
     }
 
