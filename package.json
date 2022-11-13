@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "env-cmd -f dev.env ts-node-dev --respawn --transpile-only app.ts",
-    "start": "node dist/app.js",
+    "start": "node node_modules/puppeteer/install.js & node dist/app.js",
     "build": "tsc -p .",
     "lint": "eslint . --fix",
     "test:jest": "jest --config ./jest.config.json",

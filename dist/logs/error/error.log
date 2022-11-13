@@ -1,0 +1,4 @@
+{"method":"GET","url":"/api/auth/user","http_version":"1.1","response_time":"175.354","status":"404","content_length":"31","timestamp":"2022-11-13T12:48:23.767Z","headers_count":"req-headers-length","error":"undefined"}
+{"method":"POST","url":"/api/auth/login","http_version":"1.1","response_time":"360.430","status":"400","content_length":"39","timestamp":"2022-11-13T12:48:27.890Z","headers_count":"req-headers-length","error":"undefined"}
+{"method":"POST","url":"/api/auth/login","http_version":"1.1","response_time":"330.490","status":"400","content_length":"39","timestamp":"2022-11-13T12:48:33.638Z","headers_count":"req-headers-length","error":"undefined"}
+{"method":"POST","url":"/api/auth/login","http_version":"1.1","response_time":"334.383","status":"400","content_length":"39","timestamp":"2022-11-13T12:48:39.413Z","headers_count":"req-headers-length","error":"undefined"}

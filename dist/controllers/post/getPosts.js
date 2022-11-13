@@ -18,7 +18,7 @@ const getPosts = async (req, res) => {
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
                 .select("-comments -likes")
                 .sort({ viewsCount: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else if (req.query.hasOwnProperty("tag")) {
@@ -32,7 +32,7 @@ const getPosts = async (req, res) => {
             })
                 .select("-comments -likes")
                 .sort({ createdAt: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else if (req.query.hasOwnProperty("relevant")) {
@@ -43,7 +43,7 @@ const getPosts = async (req, res) => {
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
                 .select("-comments -likes")
                 .sort({ likes: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else if (req.query.hasOwnProperty("userId")) {
@@ -54,7 +54,7 @@ const getPosts = async (req, res) => {
                 .find({ user: { $eq: req.query.userId } })
                 .select("-comments -likes")
                 .sort({ createdAt: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else if (req.query.hasOwnProperty("own")) {
@@ -67,7 +67,7 @@ const getPosts = async (req, res) => {
                 .find({ user: decoded._id })
                 .select("-comments -likes")
                 .sort({ createdAt: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else if (req.query.hasOwnProperty("favorites")) {
@@ -80,7 +80,7 @@ const getPosts = async (req, res) => {
                 .find({ likes: { $elemMatch: { user: decoded._id } } })
                 .select("-comments -likes")
                 .sort({ createdAt: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else if (req.query.hasOwnProperty("search")) {
@@ -95,7 +95,7 @@ const getPosts = async (req, res) => {
                 })
                     .select("-comments -likes")
                     .sort({ createdAt: -1 })
-                    .populate("user", "fullName _id")
+                    .populate("user", "fullName _id avatarUrl")
                     .exec()
                 : await models_1.postModel
                     .find({
@@ -104,7 +104,7 @@ const getPosts = async (req, res) => {
                 })
                     .select("-comments -likes")
                     .sort({ createdAt: -1 })
-                    .populate("user", "fullName _id")
+                    .populate("user", "fullName _id avatarUrl")
                     .exec();
         }
         else if (req.query.hasOwnProperty("all")) {
@@ -115,7 +115,7 @@ const getPosts = async (req, res) => {
                 .find()
                 .select("-comments -likes")
                 .sort({ createdAt: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         else {
@@ -123,7 +123,7 @@ const getPosts = async (req, res) => {
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
                 .select("-comments -likes")
                 .sort({ createdAt: -1 })
-                .populate("user", "fullName _id")
+                .populate("user", "fullName _id avatarUrl")
                 .exec();
         }
         res.json((0, utils_1.paginate)(posts, req.query.page, req.query.limit));

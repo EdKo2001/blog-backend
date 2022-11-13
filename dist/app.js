@@ -9,6 +9,7 @@ const cors_1 = __importDefault(require("cors"));
 const compression_1 = __importDefault(require("compression"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const multer_1 = __importDefault(require("multer"));
+const node_cron_1 = __importDefault(require("node-cron"));
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const mongoDB_1 = __importDefault(require("./config/mongoDB"));
 const swagger_json_1 = __importDefault(require("./swagger.json"));
@@ -43,6 +44,14 @@ app.post("/api/upload", utils_1.checkAuth, upload.single("image"), (req, res) =>
     res.json({
         url: `/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.originalname}`,
     });
+});
+node_cron_1.default.schedule("0 0 0 * * *", async () => {
+    try {
+        await (0, utils_1.postsScraper)();
+    }
+    catch (err) {
+        console.log(err);
+    }
 });
 app.post("/api/scrape/posts", utils_1.checkAuth, (0, utils_1.authRole)([ROLES_1.default.ADMIN]), async (req, res) => {
     try {
