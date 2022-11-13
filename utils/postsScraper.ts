@@ -12,7 +12,7 @@ import Post from "../models/Post";
 // heroku ps:exec --app=mern-blog-backend-part
 // https://github.com/jontewks/puppeteer-heroku-buildpack
 
-const postsScraper = async (limit = 10) => {
+const postsScraper = async (limit = 3) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
 
   const browser = await puppeteer.launch(
