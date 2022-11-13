@@ -3,15 +3,20 @@ import puppeteer from "puppeteer";
 import Post from "../models/Post";
 
 const postsScraper = async (limit = 3) => {
-  const browserFetcher = puppeteer.createBrowserFetcher({});
-  let revisionInfo = await browserFetcher.download("884014");
-
   const ADMIN_ID = process.env.ADMIN_ID as string;
   const browser = await puppeteer.launch({
-    executablePath: revisionInfo?.executablePath,
-    args: ["--no-sandbox", "--disabled-setupid-sandbox"],
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-first-run",
+      "--no-sandbox",
+      "--no-zygote",
+      "--single-process",
+    ],
   });
   const page = await browser.newPage();
+
   await page.goto("https://www.freecodecamp.org/news/");
 
   const links = await page.evaluate((limit) => {
