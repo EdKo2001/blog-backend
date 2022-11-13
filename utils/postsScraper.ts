@@ -7,6 +7,8 @@ import Post from "../models/Post";
 // Download and install Chrome:
 // wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 // sudo apt -y install ./google-chrome-stable_current_amd64.deb
+// To access Heroku app bash by CLI:
+// heroku ps:exec --app=mern-blog-backend-part
 
 const postsScraper = async (limit = 3) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
