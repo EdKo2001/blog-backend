@@ -2,7 +2,7 @@ import puppeteer from "puppeteer";
 
 import Post from "../models/Post";
 
-const postsScraper = async (limit = 1) => {
+const postsScraper = async (limit = 3) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
   const browser = await puppeteer.launch({});
   const page = await browser.newPage();
@@ -73,11 +73,19 @@ const postsScraper = async (limit = 1) => {
     });
   }
 
-  Post.insertMany(posts).then((res) => {
-    console.log(res.length === 0 ? "Posts up-to-date" : "Posts imported");
+  let message = "";
+
+  await Post.insertMany(posts).then((res) => {
+    message =
+      res.length === 0
+        ? "Posts up-to-date"
+        : "Imported " + res.length + " Posts";
   });
 
-  return posts;
+  return {
+    posts,
+    message,
+  };
 };
 
 export default postsScraper;
