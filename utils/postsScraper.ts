@@ -3,8 +3,12 @@ import puppeteer from "puppeteer";
 import Post from "../models/Post";
 
 const postsScraper = async (limit = 3) => {
+  const browserFetcher = puppeteer.createBrowserFetcher({});
+  let revisionInfo = await browserFetcher.download("884014");
+
   const ADMIN_ID = process.env.ADMIN_ID as string;
   const browser = await puppeteer.launch({
+    executablePath: revisionInfo?.executablePath,
     args: ["--no-sandbox", "--disabled-setupid-sandbox"],
   });
   const page = await browser.newPage();
