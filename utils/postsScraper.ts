@@ -82,6 +82,8 @@ const postsScraper = async (limit = 3) => {
         : "Imported " + res.length + " Posts";
   });
 
+  console.log(message);
+
   return {
     posts,
     message,

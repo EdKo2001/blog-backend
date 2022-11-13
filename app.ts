@@ -4,6 +4,7 @@ import cors from "cors";
 import compression from "compression";
 import dotenv from "dotenv";
 import multer from "multer";
+import cron from "node-cron";
 import swaggerUi from "swagger-ui-express";
 
 import connectDB from "./config/mongoDB";
@@ -54,6 +55,15 @@ app.post("/api/upload", checkAuth, upload.single("image"), (req, res) => {
   res.json({
     url: `/uploads/${req.file?.originalname}`,
   });
+});
+
+// Will run every day at 12:00 AM
+cron.schedule("0 0 0 * * *", async () => {
+  try {
+    await postsScraper();
+  } catch (err) {
+    console.log(err);
+  }
 });
 
 app.post(
