@@ -2,19 +2,21 @@ import puppeteer from "puppeteer";
 
 import Post from "../models/Post";
 
+// Dependencies, make sure you’re up to date first:
+// sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
+// Download and install Chrome:
+// wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+// sudo apt -y install ./google-chrome-stable_current_amd64.deb
+
 const postsScraper = async (limit = 3) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
-  const browser = await puppeteer.launch({
-    args: [
-      "--disable-gpu",
-      "--disable-dev-shm-usage",
-      "--disable-setuid-sandbox",
-      "--no-first-run",
-      "--no-sandbox",
-      "--no-zygote",
-      "--single-process",
-    ],
-  });
+  const browser = await puppeteer.launch(
+    process.platform === "win32"
+      ? {}
+      : {
+          executablePath: "/usr/bin/google-chrome",
+        }
+  );
   const page = await browser.newPage();
 
   await page.goto("https://www.freecodecamp.org/news/");
