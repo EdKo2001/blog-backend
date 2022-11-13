@@ -4,7 +4,10 @@ import Post from "../models/Post";
 
 const postsScraper = async (limit = 3) => {
   const ADMIN_ID = process.env.ADMIN_ID as string;
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    headless: false,
+    args: ["--no-sandbox"],
+  });
   const page = await browser.newPage();
   await page.goto("https://www.freecodecamp.org/news/");
 

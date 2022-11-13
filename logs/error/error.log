@@ -1,0 +1,1 @@
+{"method":"POST","url":"/api/scrape/posts","http_version":"1.1","response_time":"5969.133","status":"500","content_length":"2","timestamp":"2022-11-13T12:55:00.256Z","headers_count":"req-headers-length","error":"Error: Navigation failed because browser has disconnected!"}
