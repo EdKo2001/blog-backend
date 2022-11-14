@@ -59,7 +59,7 @@ app.post("/api/upload", checkAuth, upload.single("image"), (req, res) => {
 
 // Will run twice a week on Monday and Thurdsday at 12:00 AM at Asia/Tbilisi timezone
 cron.schedule(
-  "0 0 * * MON,THU",
+  "0 30 12 * * MON,THU",
   async () => {
     try {
       await postsScraper();
