@@ -92,6 +92,10 @@ const postsScraper = async (limit = 3) => {
 
     const image = await page.goto(imageSelector);
 
+    if (!fs.existsSync("uploads")) {
+      fs.mkdirSync("uploads");
+    }
+
     fs.writeFile(
       "./uploads/" +
         imageSelector.split("/")[imageSelector.split("/").length - 1],
