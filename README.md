@@ -17,6 +17,10 @@
 
 **[Demo](https://mern-blog-backend.onrender.com/api/api-docs/)**
 
+The server runs on a free plan, so after accessing the website, wait up to 5 minutes for the website to start working. 
+
+Thank you for your patience.
+
 ## In the project directory, you can run:
 
 ### `npm start`
