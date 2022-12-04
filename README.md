@@ -1,4 +1,5 @@
 
+
 ## Stack
 
 - Node
@@ -14,6 +15,7 @@
 
 ## Mission
 
+Done authorization, posts CRUD,  seeders and web scraping posts.
 
 **[Demo](https://mern-blog-backend.onrender.com/api/api-docs/)**
 
