@@ -68,7 +68,7 @@ const getPosts = async (req: Request, res: Response) => {
 
       posts = await postModel
         .find({ user: decoded._id })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
@@ -126,7 +126,7 @@ const getPosts = async (req: Request, res: Response) => {
     } else {
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
