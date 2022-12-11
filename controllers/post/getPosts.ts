@@ -17,7 +17,7 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ viewsCount: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
@@ -30,7 +30,7 @@ const getPosts = async (req: Request, res: Response) => {
           status: { $ne: POST_STATUSES.DRAFTED },
           tags: { $in: req.query.tag },
         })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
@@ -40,7 +40,7 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find({ status: { $ne: POST_STATUSES.DRAFTED } })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ likes: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
@@ -50,7 +50,7 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find({ user: { $eq: req.query.userId } })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
@@ -86,7 +86,7 @@ const getPosts = async (req: Request, res: Response) => {
 
       posts = await postModel
         .find({ likes: { $elemMatch: { user: decoded._id } } })
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
@@ -100,7 +100,7 @@ const getPosts = async (req: Request, res: Response) => {
             .find({
               title: { $regex: req.query.search, $options: "i" },
             })
-            .select("-comments -likes")
+            .select("-comments -likes -text")
             .sort({ createdAt: -1 })
             .populate("user", "fullName _id avatarUrl")
             .exec()
@@ -109,7 +109,7 @@ const getPosts = async (req: Request, res: Response) => {
               status: { $ne: POST_STATUSES.DRAFTED },
               title: { $regex: req.query.search, $options: "i" },
             })
-            .select("-comments -likes")
+            .select("-comments -likes -text")
             .sort({ createdAt: -1 })
             .populate("user", "fullName _id avatarUrl")
             .exec();
@@ -119,7 +119,7 @@ const getPosts = async (req: Request, res: Response) => {
       }
       posts = await postModel
         .find()
-        .select("-comments -likes")
+        .select("-comments -likes -text")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
         .exec();
