@@ -45,13 +45,15 @@ app.post("/api/upload", utils_1.checkAuth, upload.single("image"), (req, res) =>
         url: `/uploads/${(_a = req.file) === null || _a === void 0 ? void 0 : _a.originalname}`,
     });
 });
-node_cron_1.default.schedule("0 0 0 * * *", async () => {
+node_cron_1.default.schedule("0 0 12 * * MON,THU", async () => {
     try {
         await (0, utils_1.postsScraper)();
     }
     catch (err) {
         console.log(err);
     }
+}, {
+    timezone: "Asia/Tbilisi",
 });
 app.post("/api/scrape/posts", utils_1.checkAuth, (0, utils_1.authRole)([ROLES_1.default.ADMIN]), async (req, res) => {
     try {

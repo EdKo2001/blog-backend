@@ -16,7 +16,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ viewsCount: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -30,7 +30,7 @@ const getPosts = async (req, res) => {
                 status: { $ne: POST_STATUSES_1.default.DRAFTED },
                 tags: { $in: req.query.tag },
             })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -41,7 +41,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ likes: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -52,7 +52,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ user: { $eq: req.query.userId } })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -65,7 +65,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ user: decoded._id })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -78,7 +78,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ likes: { $elemMatch: { user: decoded._id } } })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -93,7 +93,7 @@ const getPosts = async (req, res) => {
                     .find({
                     title: { $regex: req.query.search, $options: "i" },
                 })
-                    .select("-comments -likes")
+                    .select("-comments -likes -content")
                     .sort({ createdAt: -1 })
                     .populate("user", "fullName _id avatarUrl")
                     .exec()
@@ -102,7 +102,7 @@ const getPosts = async (req, res) => {
                     status: { $ne: POST_STATUSES_1.default.DRAFTED },
                     title: { $regex: req.query.search, $options: "i" },
                 })
-                    .select("-comments -likes")
+                    .select("-comments -likes -content")
                     .sort({ createdAt: -1 })
                     .populate("user", "fullName _id avatarUrl")
                     .exec();
@@ -113,7 +113,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find()
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -121,7 +121,7 @@ const getPosts = async (req, res) => {
         else {
             posts = await models_1.postModel
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
-                .select("-comments -likes")
+                .select("-comments -likes -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();

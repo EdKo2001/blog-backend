@@ -5,6 +5,14 @@ import { postModel } from "../../models";
 const getPost = async (req: Request, res: Response) => {
   try {
     const slug = req.params.slug;
+    const fields: string[] | undefined = (
+      req.query.fields as string | undefined
+    )?.split(",");
+
+    const selectedFieldsObject = fields?.reduce(
+      (obj: any, item) => ((obj[item] = 1), obj),
+      {}
+    );
 
     postModel
       .findOneAndUpdate(
@@ -15,6 +23,7 @@ const getPost = async (req: Request, res: Response) => {
           $inc: { viewsCount: 1 },
         },
         {
+          fields: selectedFieldsObject,
           returnDocument: "after",
         },
         (err, doc) => {
