@@ -25,7 +25,7 @@ const updatePost = async (req: Request, res: Response) => {
         },
         {
           title: req.body.title,
-          text: req.body.text,
+          content: req.body.content,
           imageUrl: req.body.imageUrl,
           status: req.body.status,
           tags: req.body.tags.split(","),
@@ -38,7 +38,7 @@ const updatePost = async (req: Request, res: Response) => {
         },
         {
           title: req.body.title,
-          text: req.body.text,
+          content: req.body.content,
           imageUrl: req.body.imageUrl,
           status: req.body.status,
         }

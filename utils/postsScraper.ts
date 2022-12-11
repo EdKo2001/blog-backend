@@ -57,7 +57,7 @@ const postsScraper = async (limit = 3) => {
         const queryPost = document.querySelector("article.post-full.post");
 
         const title = queryPost?.querySelector("h1")?.innerHTML.trim();
-        const text = queryPost
+        const content = queryPost
           ?.querySelector(".post-full-content .post-content")
           ?.innerHTML.trim();
 
@@ -69,8 +69,8 @@ const postsScraper = async (limit = 3) => {
           post: {
             title,
             slug: title?.replace(/ /g, "-").replace(/[^\w-]+/g, ""),
-            text: text,
-            excerpt: text?.slice(0, 240) + " ...",
+            content,
+            excerpt: content?.slice(0, 240) + " ...",
             imageUrl:
               "/uploads/" +
               imageSelector.split("/")[imageSelector.split("/").length - 1],
@@ -114,13 +114,13 @@ const postsScraper = async (limit = 3) => {
 
   for (let i = 0; i < copiedPosts.length; i++) {
     const title = copiedPosts[i].title;
-    const text = copiedPosts[i].text;
+    const content = copiedPosts[i].content;
 
     // check if that unique field already exists in the collection
-    await Post.exists({ $or: [{ title }, { text }] }).then((exists) => {
+    await Post.exists({ $or: [{ title }, { content }] }).then((exists) => {
       if (exists) {
         const postIndex = posts.findIndex(
-          (post) => post.title === title && post.text === text
+          (post) => post.title === title && post.content === content
         );
 
         posts.splice(postIndex, 1);

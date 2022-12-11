@@ -13,8 +13,8 @@ const createPost = async (req: Request, res: Response) => {
           .toLowerCase()
           .replace(/ /g, "-")
           .replace(/[^\w-]+/g, ""),
-        text: req.body.text,
-        excerpt: req.body.text.slice(0, 240) + " ...",
+        content: req.body.content,
+        excerpt: req.body.content.slice(0, 240) + " ...",
         status: req.body.status,
         imageUrl: req.body.imageUrl,
         tags: req.body.tags.split(","),
@@ -27,8 +27,8 @@ const createPost = async (req: Request, res: Response) => {
           .toLowerCase()
           .replace(/ /g, "-")
           .replace(/[^\w-]+/g, ""),
-        text: req.body.text,
-        excerpt: req.body.text.slice(0, 240) + " ...",
+        content: req.body.content,
+        excerpt: req.body.content.slice(0, 240) + " ...",
         status: req.body.status,
         imageUrl: req.body.imageUrl,
         user: req.user.id,

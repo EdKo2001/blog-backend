@@ -5,13 +5,13 @@ import POST_STATUSES from "../constants/POST_STATUSES";
 export interface IPost extends Document {
   title: string;
   slug: string;
-  text: string;
+  content: string;
   status: POST_STATUSES;
   tags: string[];
   viewsCount: number;
   likes: [{ user: Schema.Types.ObjectId; createdAt: Date }];
   likesCount: number;
-  comments: [{ text: string; user: Schema.Types.ObjectId; createdAt: Date }];
+  comments: [{ content: string; user: Schema.Types.ObjectId; createdAt: Date }];
   commentsCount: number;
   user: Schema.Types.ObjectId;
 }
@@ -27,7 +27,7 @@ const PostSchema = new Schema(
       lowercase: true,
       required: true,
     },
-    text: {
+    content: {
       type: String,
       required: true,
       unique: true,
@@ -69,7 +69,7 @@ const PostSchema = new Schema(
     },
     comments: [
       {
-        text: {
+        content: {
           type: String,
           required: true,
         },
