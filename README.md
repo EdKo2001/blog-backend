@@ -1,3 +1,8 @@
+<h1 align="center">MERN BLOG BACKEND</h1>
+
+<p align="center">
+    <img align="center" src="https://user-images.githubusercontent.com/53624093/207124607-c2a9c82d-e1d6-4d23-92b2-b23dc61fadb2.gif">
+</p>
 
 
 ## Stack
