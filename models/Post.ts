@@ -69,7 +69,7 @@ const PostSchema = new Schema(
     },
     comments: [
       {
-        content: {
+        text: {
           type: String,
           required: true,
         },

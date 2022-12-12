@@ -6,7 +6,7 @@ import { postModel } from "../../models";
 const createComment = async (req: Request, res: Response) => {
   try {
     const comment = {
-      content: req.body.content,
+      text: req.body.text,
       user: req.user.id,
       createdAt: Date.now(),
     };
