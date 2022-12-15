@@ -119,7 +119,7 @@ const getPosts = async (req: Request, res: Response) => {
       }
 
       posts = await postModel
-        .find({ _id: { $in: JSON.parse(req.query.id as string) } })
+        .find({ _id: { $in: (req.query.id as string).split(",") } })
         .select("-comments -likes -content")
         .sort({ createdAt: -1 })
         .populate("user", "fullName _id avatarUrl")
