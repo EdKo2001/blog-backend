@@ -3,7 +3,7 @@ import { Request, Response, NextFunction } from "express";
 const paginate = (
   data?: any,
   page = 1 as any,
-  limit = 1 as any,
+  limit = 10 as any,
   middleware?: boolean,
   model?: any
 ) => {
