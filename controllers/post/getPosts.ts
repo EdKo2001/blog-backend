@@ -113,6 +113,17 @@ const getPosts = async (req: Request, res: Response) => {
             .sort({ createdAt: -1 })
             .populate("user", "fullName _id avatarUrl")
             .exec();
+    } else if (req.query.hasOwnProperty("id")) {
+      if (req.query.id === "") {
+        return res.status(400).json({ error: "id mustn't be empty" });
+      }
+
+      posts = await postModel
+        .find({ _id: { $in: JSON.parse(req.query.id as string) } })
+        .select("-comments -likes -content")
+        .sort({ createdAt: -1 })
+        .populate("user", "fullName _id avatarUrl")
+        .exec();
     } else if (req.query.hasOwnProperty("all")) {
       if (req.query.all !== "") {
         return res.status(400).json({ error: "all must be empty" });
