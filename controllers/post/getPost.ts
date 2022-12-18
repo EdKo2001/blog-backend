@@ -43,7 +43,7 @@ const getPost = async (req: Request, res: Response) => {
           res.json(doc);
         }
       )
-      .select("-comments -likes -excerpt")
+      .select("-comments -excerpt")
       .populate("user", "fullName _id avatarUrl");
   } catch (error) {
     req.error = { message: error };
