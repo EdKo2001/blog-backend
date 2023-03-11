@@ -14,19 +14,18 @@ const deleteLike = async (req: Request, res: Response) => {
         { $pull: { likes: like }, $inc: { likesCount: -1 } },
         { new: true }
       )
-      .exec((err, doc) => {
-        if (err) {
-          console.log(err);
-          return res.status(422).json({
-            message: err,
-          });
-        }
-
+      .then((doc) => {
         res.json(doc);
+      })
+      .catch((err) => {
+        console.log(err);
+        return res.status(422).json({
+          message: err,
+        });
       });
-  } catch (error) {
-    req.error = { message: error };
-    console.log(error);
+  } catch (err) {
+    req.error = { message: err };
+    console.log(err);
     res.status(503).json({
       message: "Failed to delete like",
     });

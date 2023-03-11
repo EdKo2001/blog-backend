@@ -25,29 +25,29 @@ const getPost = async (req: Request, res: Response) => {
         {
           fields: selectedFieldsObject,
           returnDocument: "after",
-        },
-        (err, doc) => {
-          if (err) {
-            console.log(err);
-            return res.status(500).json({
-              message: "Unable to return article",
-            });
-          }
-
-          if (!doc) {
-            return res.status(404).json({
-              message: "Article not found",
-            });
-          }
-
-          res.json(doc);
         }
       )
       .select("-comments -excerpt")
-      .populate("user", "fullName _id avatarUrl");
-  } catch (error) {
-    req.error = { message: error };
-    console.log(error);
+      .populate("user", "fullName _id avatarUrl")
+      .then((doc) => {
+        if (!doc) {
+          return res.status(404).json({
+            message: "Article not found",
+          });
+        }
+
+        res.json(doc);
+      })
+      .catch((err) => {
+        req.error = { message: err };
+        console.log(err);
+        return res.status(500).json({
+          message: "Unable to return article",
+        });
+      });
+  } catch (err) {
+    req.error = { message: err };
+    console.log(err);
     res.status(503).json({
       message: "Failed to retrieve articles",
     });
