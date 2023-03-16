@@ -16,7 +16,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ viewsCount: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -30,7 +30,7 @@ const getPosts = async (req, res) => {
                 status: { $ne: POST_STATUSES_1.default.DRAFTED },
                 tags: { $in: req.query.tag },
             })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -41,7 +41,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ likes: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -52,7 +52,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ user: { $eq: req.query.userId } })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -65,7 +65,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ user: decoded._id })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -78,7 +78,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find({ likes: { $elemMatch: { user: decoded._id } } })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -93,7 +93,7 @@ const getPosts = async (req, res) => {
                     .find({
                     title: { $regex: req.query.search, $options: "i" },
                 })
-                    .select("-comments -likes -content")
+                    .select("-comments -content")
                     .sort({ createdAt: -1 })
                     .populate("user", "fullName _id avatarUrl")
                     .exec()
@@ -102,10 +102,21 @@ const getPosts = async (req, res) => {
                     status: { $ne: POST_STATUSES_1.default.DRAFTED },
                     title: { $regex: req.query.search, $options: "i" },
                 })
-                    .select("-comments -likes -content")
+                    .select("-comments -content")
                     .sort({ createdAt: -1 })
                     .populate("user", "fullName _id avatarUrl")
                     .exec();
+        }
+        else if (req.query.hasOwnProperty("id")) {
+            if (req.query.id === "") {
+                return res.status(400).json({ error: "id mustn't be empty" });
+            }
+            posts = await models_1.postModel
+                .find({ _id: { $in: req.query.id.split(",") } })
+                .select("-comments -content")
+                .sort({ createdAt: -1 })
+                .populate("user", "fullName _id avatarUrl")
+                .exec();
         }
         else if (req.query.hasOwnProperty("all")) {
             if (req.query.all !== "") {
@@ -113,7 +124,7 @@ const getPosts = async (req, res) => {
             }
             posts = await models_1.postModel
                 .find()
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();
@@ -121,7 +132,7 @@ const getPosts = async (req, res) => {
         else {
             posts = await models_1.postModel
                 .find({ status: { $ne: POST_STATUSES_1.default.DRAFTED } })
-                .select("-comments -likes -content")
+                .select("-comments -content")
                 .sort({ createdAt: -1 })
                 .populate("user", "fullName _id avatarUrl")
                 .exec();

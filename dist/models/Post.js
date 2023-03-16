@@ -57,7 +57,7 @@ const PostSchema = new mongoose_1.Schema({
     },
     comments: [
         {
-            content: {
+            text: {
                 type: String,
                 required: true,
             },
