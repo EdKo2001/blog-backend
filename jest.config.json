@@ -5,7 +5,6 @@
     "^.+\\.(ts|tsx)?$": "ts-jest"
   },
   "rootDir": "__tests__",
-  "modulePathIgnorePatterns": ["./__tests__/index.ts"],
   "verbose": true,
-  "silent": false
+  "silent": true
 }
