@@ -7,5 +7,5 @@
   "rootDir": "__tests__",
   "modulePathIgnorePatterns": ["./__tests__/index.ts"],
   "verbose": true,
-  "silent": true
+  "silent": false
 }
