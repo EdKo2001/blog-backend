@@ -8,15 +8,11 @@
     "start": "node node_modules/puppeteer/install.js & node dist/app.js",
     "build": "tsc -p .",
     "lint": "eslint . --fix",
-    "test:jest": "jest --config ./jest.config.json",
-    "test:jest-watch": "jest --config ./jest.config.json --watch",
+    "test:jest": "node ./dist/__tests__/index.js && jest --config ./jest.config.json",
+    "test:jest-watch": "node ./dist/__tests__/index.js && jest --config ./jest.config.json --watch",
     "migrate": "node dist/config/migrate.js",
     "seeders": "node dist/config/seeders.js",
-    "seeders:delete": "node dist/config/seeders.js -d",
-    "dummy-users": "node dist/config/dummy-users-seeder.js",
-    "dummy-users:delete": "node dist/config/dummy-users-seeder.js -d",
-    "test": "ts-mocha --require ts-node/register  __tests__/*.test.ts",
-    "test:watch": "npm run test -- --watch"
+    "seeders:delete": "node dist/config/seeders.js -d"
   },
   "author": "Eduard Koshkelyan",
   "license": "ISC",
@@ -40,6 +36,8 @@
     "swagger-ui-express": "^4.6.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.21.3",
+    "@babel/preset-env": "^7.20.2",
     "@types/bcrypt": "^5.0.0",
     "@types/chai": "^4.3.4",
     "@types/compression": "^1.7.2",
@@ -62,9 +60,10 @@
     "jest": "^29.5.0",
     "mocha": "^10.2.0",
     "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.2",
-    "ts-mocha": "^10.0.0"
+    "typescript": "^5.0.2"
   }
 }

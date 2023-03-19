@@ -1,8 +1,27 @@
 import app from "../app";
-import request from "supertest";
+
+import supertest, { Response, SuperTest } from "supertest";
+import { Server } from "http";
+
+let server: Server;
+let request: SuperTest<any>;
+
+beforeAll(async () => {
+  server = app.listen();
+  request = supertest(server);
+});
 
 describe("Get Routes", () => {
-  test("GET /error", async () => {
-    await request(app).get("/error").expect(500);
+  test("GET /404", async () => {
+    const response: Response = await request.get("/404");
+    expect(response.status).toBe(404);
   });
+  test("GET /error", async () => {
+    const response: Response = await request.get("/error");
+    expect(response.status).toBe(500);
+  });
+});
+
+afterAll(async () => {
+  server.close();
 });
