@@ -14,3 +14,6 @@ dev.env
 
 # build
 /dist
+
+# logs
+/dist
