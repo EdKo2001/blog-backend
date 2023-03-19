@@ -10,9 +10,9 @@
     "lint": "eslint . --fix",
     "test:jest": "cross-env NODE_ENV=test jest --config ./jest.config.json",
     "test:jest-watch": "cross-env NODE_ENV=test jest  --config ./jest.config.json --watch",
-    "migrate": "node dist/config/migrate.js",
-    "seeders": "node dist/config/seeders.js",
-    "seeders:delete": "node dist/config/seeders.js -d"
+    "migrate": "env-cmd -f .env node dist/config/migrate.js",
+    "seeder": "node dist/config/seeder.js",
+    "seeder:delete": "node dist/config/seeder.js -d"
   },
   "author": "Eduard Koshkelyan",
   "license": "ISC",
