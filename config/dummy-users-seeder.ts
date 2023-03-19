@@ -12,7 +12,7 @@ connectDB();
 
 // Users Seeder
 const importUsers = async () => {
-  let copiedUsers = [...users];
+  const copiedUsers = [...users];
 
   try {
     for (let i = 0; i < copiedUsers.length; i++) {
@@ -45,10 +45,8 @@ const importUsers = async () => {
 const deleteUsers = async () => {
   try {
     await User.deleteMany({
-      $match: {
-        _id: {
-          $in: [users.map((user) => user._id)],
-        },
+      _id: {
+        $in: users.map((user) => user._id),
       },
     }).then((res) =>
       res.deletedCount === 0
@@ -62,6 +60,8 @@ const deleteUsers = async () => {
     process.exit(1);
   }
 };
+
+export { importUsers, deleteUsers };
 
 switch (process.argv[2]) {
   case "-d": {
