@@ -16,4 +16,4 @@ dev.env
 /dist
 
 # logs
-/dist
+/logs
