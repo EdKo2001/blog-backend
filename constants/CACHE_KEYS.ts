@@ -1,5 +1,5 @@
 enum CACHE_KEYS {
-  RECENTPOSTS = "recent_posts",
+  RECENT_POSTS = "recent_posts",
 }
 
 export default CACHE_KEYS;

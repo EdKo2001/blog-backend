@@ -4,12 +4,12 @@
   "description": "Blog Back-end part done on Node.js",
   "main": "app.js",
   "scripts": {
-    "dev": "env-cmd -f dev.env ts-node-dev --respawn --transpile-only app.ts",
-    "start": "node node_modules/puppeteer/install.js & node dist/app.js",
+    "dev": "cross-env NODE_ENV=dev env-cmd -f dev.env ts-node-dev --respawn --transpile-only app.ts",
+    "start": "node node_modules/puppeteer/install.js & cross-env NODE_ENV=production env-cmd -f .env node dist/app.js",
     "build": "tsc -p .",
     "lint": "eslint . --fix",
     "test:jest": "cross-env NODE_ENV=test jest --config ./jest.config.json",
-    "test:jest-watch": "cross-env NODE_ENV=test jest  --config ./jest.config.json --watch",
+    "test:jest-watch": "cross-env NODE_ENV=test jest --config ./jest.config.json --watch",
     "migrate": "env-cmd -f .env node dist/config/migrate.js",
     "seeder": "node dist/config/seeder.js",
     "seeder:delete": "node dist/config/seeder.js -d"

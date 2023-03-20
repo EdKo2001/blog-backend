@@ -33,13 +33,13 @@ const removePost = async (req: Request, res: Response) => {
           });
         }
 
-        const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENTPOSTS);
+        const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENT_POSTS);
 
         if (cachedPosts) {
           const parsedPosts = JSON.parse(cachedPosts);
 
           setRedisAsync(
-            CACHE_KEYS.RECENTPOSTS,
+            CACHE_KEYS.RECENT_POSTS,
             JSON.stringify(
               parsedPosts.filter((post: IPost) => post.slug !== slug)
             )

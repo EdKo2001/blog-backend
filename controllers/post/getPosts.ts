@@ -138,7 +138,7 @@ const getPosts = async (req: Request, res: Response) => {
         .populate("user", "fullName _id avatarUrl")
         .exec();
     } else {
-      const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENTPOSTS);
+      const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENT_POSTS);
 
       if (cachedPosts) {
         posts = JSON.parse(cachedPosts);
@@ -150,7 +150,7 @@ const getPosts = async (req: Request, res: Response) => {
           .populate("user", "fullName _id avatarUrl")
           .exec();
 
-        setRedisAsync(CACHE_KEYS.RECENTPOSTS, JSON.stringify(posts));
+        setRedisAsync(CACHE_KEYS.RECENT_POSTS, JSON.stringify(posts));
       }
     }
 

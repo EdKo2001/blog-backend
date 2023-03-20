@@ -49,13 +49,13 @@ const updatePost = async (req: Request, res: Response) => {
       );
     }
 
-    const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENTPOSTS);
+    const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENT_POSTS);
 
     if (cachedPosts) {
       const parsedPosts = JSON.parse(cachedPosts);
       if (req.body.status === POST_STATUSES.DRAFTED) {
         setRedisAsync(
-          CACHE_KEYS.RECENTPOSTS,
+          CACHE_KEYS.RECENT_POSTS,
           JSON.stringify(
             parsedPosts.filter((post: IPost) => post.slug !== slug)
           )
@@ -67,7 +67,7 @@ const updatePost = async (req: Request, res: Response) => {
 
         if (!targetPost) {
           setRedisAsync(
-            CACHE_KEYS.RECENTPOSTS,
+            CACHE_KEYS.RECENT_POSTS,
             JSON.stringify([
               await postModel
                 .findOne({ slug })
@@ -84,7 +84,7 @@ const updatePost = async (req: Request, res: Response) => {
           targetPost.imageUrl = req.body.imageUrl;
           targetPost.status = req.body.status;
 
-          setRedisAsync(CACHE_KEYS.RECENTPOSTS, JSON.stringify(parsedPosts));
+          setRedisAsync(CACHE_KEYS.RECENT_POSTS, JSON.stringify(parsedPosts));
         }
       }
     }

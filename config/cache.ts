@@ -1,13 +1,25 @@
 import { createClient } from "redis";
 import util from "util";
 
-const client = createClient({
-  url: process.env.REDIS_URL,
-  legacyMode: true,
-});
+let client: any;
+if (process.env.NODE_ENV === "production") {
+  client = createClient({
+    password: process.env.REDIS_PASSWORD,
+    socket: {
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT!),
+    },
+    legacyMode: true,
+  });
+} else {
+  client = createClient({
+    url: process.env.REDIS_URL,
+    legacyMode: true,
+  });
+}
 
 (async () => {
-  client.on("error", (err) => console.log("Redis Client Error", err));
+  // client.on("error", (err: Error) => console.log("Redis Client Error", err));
   await client.connect();
 })();
 

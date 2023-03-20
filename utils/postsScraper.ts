@@ -135,7 +135,7 @@ const postsScraper = async (limit = 3) => {
   let message = "";
 
   await Post.insertMany(posts).then((res) => {
-    res.length !== 0 && deleteRedisAsync(CACHE_KEYS.RECENTPOSTS);
+    res.length !== 0 && deleteRedisAsync(CACHE_KEYS.RECENT_POSTS);
     message =
       res.length === 0
         ? "Posts up-to-date"
