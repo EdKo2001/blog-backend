@@ -6,6 +6,9 @@ import { postModel } from "../../models";
 import { paginate } from "../../utils";
 
 import POST_STATUSES from "../../constants/POST_STATUSES";
+import CACHE_KEYS from "../../constants/CACHE_KEYS";
+
+import { getRedisAsync, setRedisAsync } from "../../config";
 
 const getPosts = async (req: Request, res: Response) => {
   try {
@@ -135,12 +138,20 @@ const getPosts = async (req: Request, res: Response) => {
         .populate("user", "fullName _id avatarUrl")
         .exec();
     } else {
-      posts = await postModel
-        .find({ status: { $ne: POST_STATUSES.DRAFTED } })
-        .select("-comments -content")
-        .sort({ createdAt: -1 })
-        .populate("user", "fullName _id avatarUrl")
-        .exec();
+      const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENTPOSTS);
+
+      if (cachedPosts) {
+        posts = JSON.parse(cachedPosts);
+      } else {
+        posts = await postModel
+          .find({ status: { $ne: POST_STATUSES.DRAFTED } })
+          .select("-comments -content")
+          .sort({ createdAt: -1 })
+          .populate("user", "fullName _id avatarUrl")
+          .exec();
+
+        setRedisAsync(CACHE_KEYS.RECENTPOSTS, JSON.stringify(posts));
+      }
     }
 
     res.json(paginate(posts, req.query.page, req.query.limit));

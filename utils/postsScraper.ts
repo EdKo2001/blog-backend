@@ -3,6 +3,10 @@ import fs from "fs";
 
 import Post from "../models/Post";
 
+import { deleteRedisAsync } from "../config";
+
+import CACHE_KEYS from "../constants/CACHE_KEYS";
+
 // Dependencies, make sure you’re up to date first:
 // sudo apt update && sudo apt -y upgrade && sudo apt -y autoremove
 // Download and install Chrome:
@@ -131,6 +135,7 @@ const postsScraper = async (limit = 3) => {
   let message = "";
 
   await Post.insertMany(posts).then((res) => {
+    res.length !== 0 && deleteRedisAsync(CACHE_KEYS.RECENTPOSTS);
     message =
       res.length === 0
         ? "Posts up-to-date"

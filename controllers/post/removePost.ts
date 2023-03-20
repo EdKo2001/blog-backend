@@ -1,9 +1,12 @@
 import { Request, Response } from "express";
 import { ExtractMongooseArray } from "mongoose";
 
-import { postModel } from "../../models";
+import { IPost, postModel } from "../../models";
 
 import ROLES from "../../constants/ROLES";
+import CACHE_KEYS from "../../constants/CACHE_KEYS";
+
+import { getRedisAsync, setRedisAsync } from "../../config";
 
 const removePost = async (req: Request, res: Response) => {
   try {
@@ -19,29 +22,40 @@ const removePost = async (req: Request, res: Response) => {
       });
     }
 
-    postModel.findOneAndDelete(
-      {
+    postModel
+      .findOneAndDelete({
         slug,
-      },
-      (error: Error, doc: ExtractMongooseArray<any>) => {
-        if (error) {
-          req.error = { message: error };
-          return res.status(500).json({
-            message: "Failed to delete article",
-          });
-        }
-
+      })
+      .then(async (doc) => {
         if (!doc) {
           return res.status(404).json({
             message: "Article not found",
           });
         }
 
+        const cachedPosts = await getRedisAsync(CACHE_KEYS.RECENTPOSTS);
+
+        if (cachedPosts) {
+          const parsedPosts = JSON.parse(cachedPosts);
+
+          setRedisAsync(
+            CACHE_KEYS.RECENTPOSTS,
+            JSON.stringify(
+              parsedPosts.filter((post: IPost) => post.slug !== slug)
+            )
+          );
+        }
+
         res.status(204).json({
           success: true,
         });
-      }
-    );
+      })
+      .catch((err) => {
+        req.error = { message: err };
+        return res.status(500).json({
+          message: "Failed to delete article",
+        });
+      });
   } catch (error) {
     req.error = { message: error };
     console.log(error);
