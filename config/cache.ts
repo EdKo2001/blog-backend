@@ -2,7 +2,7 @@ import { createClient } from "redis";
 import util from "util";
 
 const client = createClient({
-  url: process.env.REDIS_UR,
+  url: process.env.REDIS_URL,
   legacyMode: true,
 });
 
