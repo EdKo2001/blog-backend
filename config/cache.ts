@@ -1,5 +1,8 @@
 import { createClient } from "redis";
 import util from "util";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 let client: any;
 if (process.env.NODE_ENV === "production") {

@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=dev env-cmd -f dev.env ts-node-dev --respawn --transpile-only app.ts",
-    "start": "node node_modules/puppeteer/install.js & cross-env NODE_ENV=production env-cmd -f .env node dist/app.js",
+    "start": "node node_modules/puppeteer/install.js & cross-env NODE_ENV=production node dist/app.js",
     "build": "tsc -p .",
     "lint": "eslint . --fix",
     "test:jest": "cross-env NODE_ENV=test jest --config ./jest.config.json",
