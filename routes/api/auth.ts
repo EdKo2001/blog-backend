@@ -24,4 +24,16 @@ router.post(
 
 router.get("/user", checkAuth, authController.user);
 
+router.all("/login", (req: Request, res: Response, next: NextFunction) => {
+  res.status(405).json("Method Not Allowed");
+});
+
+router.all("/register", (req: Request, res: Response, next: NextFunction) => {
+  res.status(405).json("Method Not Allowed");
+});
+
+router.all("/user", (req: Request, res: Response, next: NextFunction) => {
+  res.status(405).json("Method Not Allowed");
+});
+
 export default router;
