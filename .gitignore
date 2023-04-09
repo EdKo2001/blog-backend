@@ -12,8 +12,5 @@ dev.env
 # uploads
 /uploads
 
-# build
-/dist
-
 # logs
 /logs
