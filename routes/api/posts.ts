@@ -62,31 +62,31 @@ router.put(
   postController.deleteLike
 );
 
-router.all("/", (req: Request, res: Response, next: NextFunction) => {
+router.all("/", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 });
 
-router.all("/tags", (req: Request, res: Response, next: NextFunction) => {
+router.all("/tags", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 });
 
-router.all("/:slug", (req: Request, res: Response, next: NextFunction) => {
+router.all("/:slug", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 })
 
-router.all("/:slug/comments", (req: Request, res: Response, next: NextFunction) => {
+router.all("/:slug/comments", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 })
 
-router.all("/:slug/likes", (req: Request, res: Response, next: NextFunction) => {
+router.all("/:slug/likes", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 })
 
-router.all("/:slug/like", (req: Request, res: Response, next: NextFunction) => {
+router.all("/:slug/like", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 })
 
-router.all("/:slug/unlike", (req: Request, res: Response, next: NextFunction) => {
+router.all("/:slug/unlike", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 })
 

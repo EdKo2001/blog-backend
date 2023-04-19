@@ -24,15 +24,15 @@ router.post(
 
 router.get("/user", checkAuth, authController.user);
 
-router.all("/login", (req: Request, res: Response, next: NextFunction) => {
+router.all("/login", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 });
 
-router.all("/register", (req: Request, res: Response, next: NextFunction) => {
+router.all("/register", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 });
 
-router.all("/user", (req: Request, res: Response, next: NextFunction) => {
+router.all("/user", (req, res, next) => {
   res.status(405).json("Method Not Allowed");
 });
 
