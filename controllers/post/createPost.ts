@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 
 import { postModel } from "../../models";
 
+import { deleteRedisAsync } from "../../config";
+
+import CACHE_KEYS from "../../constants/CACHE_KEYS";
+
 const createPost = async (req: Request, res: Response) => {
   try {
     let doc;
@@ -36,6 +40,8 @@ const createPost = async (req: Request, res: Response) => {
     }
 
     const post = await doc.save();
+
+    deleteRedisAsync(CACHE_KEYS.RECENT_POSTS);
 
     res.json(post);
   } catch (error) {

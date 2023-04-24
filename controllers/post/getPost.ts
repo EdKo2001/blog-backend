@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 
 import { postModel } from "../../models";
 
+import { deleteRedisAsync } from "../../config";
+
+import CACHE_KEYS from "../../constants/CACHE_KEYS";
+
 const getPost = async (req: Request, res: Response) => {
   try {
     const slug = req.params.slug;
@@ -36,6 +40,7 @@ const getPost = async (req: Request, res: Response) => {
           });
         }
 
+        deleteRedisAsync(CACHE_KEYS.RECENT_POSTS);
         res.json(doc);
       })
       .catch((err) => {

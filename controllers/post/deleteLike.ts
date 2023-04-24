@@ -2,6 +2,10 @@ import { Request, Response } from "express";
 
 import { postModel } from "../../models";
 
+import { deleteRedisAsync } from "../../config";
+
+import CACHE_KEYS from "../../constants/CACHE_KEYS";
+
 const deleteLike = async (req: Request, res: Response) => {
   try {
     const like = {
@@ -15,6 +19,7 @@ const deleteLike = async (req: Request, res: Response) => {
         { new: true }
       )
       .then((doc) => {
+        deleteRedisAsync(CACHE_KEYS.RECENT_POSTS);
         res.json(doc);
       })
       .catch((err) => {

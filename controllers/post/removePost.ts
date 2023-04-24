@@ -6,7 +6,7 @@ import { IPost, postModel } from "../../models";
 import ROLES from "../../constants/ROLES";
 import CACHE_KEYS from "../../constants/CACHE_KEYS";
 
-import { getRedisAsync, setRedisAsync } from "../../config";
+import { deleteRedisAsync, getRedisAsync, setRedisAsync } from "../../config";
 
 const removePost = async (req: Request, res: Response) => {
   try {
@@ -45,6 +45,8 @@ const removePost = async (req: Request, res: Response) => {
             )
           );
         }
+
+        deleteRedisAsync(CACHE_KEYS.RECENT_POSTS);
 
         res.status(204).json({
           success: true,

@@ -3,6 +3,10 @@ import axios from "axios";
 
 import { postModel } from "../../models";
 
+import CACHE_KEYS from "../../constants/CACHE_KEYS";
+
+import { deleteRedisAsync } from "../../config";
+
 const createComment = async (req: Request, res: Response) => {
   try {
     const comment = {
@@ -37,6 +41,7 @@ const createComment = async (req: Request, res: Response) => {
       )
       .populate("comments.user", "fullName avatarUrl")
       .then((doc) => {
+        deleteRedisAsync(CACHE_KEYS.RECENT_POSTS);
         res.json(doc);
       })
       .catch((err) => {
