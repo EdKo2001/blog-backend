@@ -19,6 +19,7 @@ import {
   checkAuth,
   postsScraper,
   authRole,
+  rateLimiter,
 } from "./utils";
 
 import ROLES from "./constants/ROLES";
@@ -41,10 +42,12 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+const limiter = rateLimiter(15 * 60 * 1000, 100);
 
 app.use(express.json());
 app.use(mongoSanitize);
 app.use("/uploads", express.static("uploads"));
+app.use(limiter);
 app.use(cors());
 app.use(compression());
 app.use(errorLogger);

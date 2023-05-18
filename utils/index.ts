@@ -5,3 +5,4 @@ export { default as mostFreqStr } from "./mostFreqStr";
 export { default as paginate } from "./paginate";
 export { default as authRole } from "./authRole";
 export { default as postsScraper } from "./postsScraper";
+export { default as rateLimiter } from "./rateLimiter";
