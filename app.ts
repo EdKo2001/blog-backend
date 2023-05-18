@@ -45,7 +45,7 @@ const upload = multer({ storage });
 const limiter = rateLimiter(15 * 60 * 1000, 100);
 
 app.use(express.json());
-app.use(mongoSanitize);
+app.use(mongoSanitize());
 app.use("/uploads", express.static("uploads"));
 app.use(limiter);
 app.use(cors());
