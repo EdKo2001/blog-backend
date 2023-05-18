@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from "express";
 import fs from "fs";
 import cors from "cors";
 import compression from "compression";
+import mongoSanitize from "express-mongo-sanitize";
 import dotenv from "dotenv";
 import multer from "multer";
 import cron from "node-cron";
@@ -42,6 +43,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 app.use(express.json());
+app.use(mongoSanitize);
 app.use("/uploads", express.static("uploads"));
 app.use(cors());
 app.use(compression());
